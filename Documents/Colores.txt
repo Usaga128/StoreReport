@@ -1,0 +1,7 @@
+Amarillo #FFC20E
+
+Negro #000000
+
+Vino #5e2129
+
+Blanco
