@@ -24,7 +24,7 @@ namespace StoreReport.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Página de contacto.";
 
             return View();
         }
