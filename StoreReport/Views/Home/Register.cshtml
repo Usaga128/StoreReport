@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Registrar";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<title>Accediendo a la camara web desde HTML5</title>
+<button id="snap">Snap Photo</button>
+
+<div class="divTable" style="justify-content:center">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">
+                <video id="video" width="500" height="500" autoplay></video>
+            </div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">
+                <canvas id="canvas" width="500" height="500"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    // Put event listeners into place
+    window.addEventListener("DOMContentLoaded", function() {
+        // Grab elements, create settings, etc.
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var video = document.getElementById('video');
+        var mediaConfig =  { video: true };
+        var errBack = function(e) {
+            console.log('An error has occurred!', e)
+        };
+
+        // Put video listeners into place
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+navigator.mediaDevices.getUserMedia({
+video: true
+})
+.then(function(stream) {
+video.srcObject = stream;
+})
+.catch(function(error) {
+console.log('error', error);
+});
+
+        }
+
+
+
+        /* Legacy code below! */
+        else if(navigator.getUserMedia) { // Standard
+            navigator.getUserMedia(mediaConfig, function(stream) {
+                video.src = stream;
+                video.play();
+            }, errBack);
+        } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+            navigator.webkitGetUserMedia(mediaConfig, function(stream){
+                video.src = window.webkitURL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+            navigator.mozGetUserMedia(mediaConfig, function(stream){
+                video.src = window.URL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        }
+
+        // Trigger photo take
+        document.getElementById('snap').addEventListener('click', function() {
+            context.drawImage(video, 0, 0, 400, 400);
+        });
+    }, false);
+
+</script>
