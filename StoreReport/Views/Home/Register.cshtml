@@ -1,77 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Registrar";
+    ViewData["Title"] = "Registrar Producto";
 }
-<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Title"]</h3>
 <h3>@ViewData["Message"]</h3>
 
-<title>Accediendo a la camara web desde HTML5</title>
-<button id="snap">Snap Photo</button>
+<title>Registro de producto.</title>
+<button id="snap" class="btn btn-success centercontrols" >Tomar foto</button>
 
 <div class="divTable" style="justify-content:center">
     <div class="divTableBody">
         <div class="divTableRow">
             <div class="divTableCell">
-                <video id="video" width="500" height="500" autoplay></video>
+                <video id="video" width="250" height="250" autoplay class="centercontrols"></video>
             </div>
         </div>
         <div class="divTableRow">
             <div class="divTableCell">
-                <canvas id="canvas" width="500" height="500"></canvas>
+                <canvas id="canvas" width="300" height="300" class="centercontrols"></canvas>
             </div>
         </div>
     </div>
 </div>
-<script>
 
-    // Put event listeners into place
-    window.addEventListener("DOMContentLoaded", function() {
+    <script>
+        // Put event listeners into place
+        window.addEventListener("DOMContentLoaded", function () {
         // Grab elements, create settings, etc.
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         var video = document.getElementById('video');
-        var mediaConfig =  { video: true };
-        var errBack = function(e) {
+        var mediaConfig = {video: true };
+        var errBack = function (e) {
             console.log('An error has occurred!', e)
         };
 
         // Put video listeners into place
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-navigator.mediaDevices.getUserMedia({
-video: true
-})
-.then(function(stream) {
-video.srcObject = stream;
-})
-.catch(function(error) {
-console.log('error', error);
-});
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                video: true
+            })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log('error', error);
+                });
 
         }
 
 
 
         /* Legacy code below! */
-        else if(navigator.getUserMedia) { // Standard
-            navigator.getUserMedia(mediaConfig, function(stream) {
+        else if (navigator.getUserMedia) { // Standard
+            navigator.getUserMedia(mediaConfig, function (stream) {
                 video.src = stream;
                 video.play();
             }, errBack);
-        } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-            navigator.webkitGetUserMedia(mediaConfig, function(stream){
+        } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+            navigator.webkitGetUserMedia(mediaConfig, function (stream) {
                 video.src = window.webkitURL.createObjectURL(stream);
                 video.play();
             }, errBack);
-        } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-            navigator.mozGetUserMedia(mediaConfig, function(stream){
+        } else if (navigator.mozGetUserMedia) { // Mozilla-prefixed
+            navigator.mozGetUserMedia(mediaConfig, function (stream) {
                 video.src = window.URL.createObjectURL(stream);
                 video.play();
             }, errBack);
         }
 
         // Trigger photo take
-        document.getElementById('snap').addEventListener('click', function() {
-            context.drawImage(video, 0, 0, 400, 400);
+        document.getElementById('snap').addEventListener('click', function () {
+            context.drawImage(video, 25, 0, 250, 200);
         });
     }, false);
 
 </script>
+

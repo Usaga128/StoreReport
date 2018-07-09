@@ -17,7 +17,7 @@ namespace StoreReport.Controllers
 
         public IActionResult Register()
         {
-            ViewData["Message"] = "Registrar.";
+            ViewData["Message"] = "";
 
             return View();
         }
