@@ -8,6 +8,32 @@
 <h4>@ViewData["Title"]</h4>
 <h4>@ViewData["Message"]</h4>
 
+
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+
+    function get_loc() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(coordenadas);
+        } else {
+            alert('Este navegador es algo antiguo, actualiza para usar el API de localización');
+        }
+    }
+
+
+    function coordenadas(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+       
+    }
+</script>
+
+
+
 <title>Registro de producto.</title>
 <div class="form-group">
     <label for="codReportLabel">Reporte</label> <label for="codReport">#99832</label>
@@ -122,7 +148,7 @@
                                 </div>
 
                                 <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal">Continuar</button>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -166,6 +192,7 @@
                     <button type="button" class="btn btn-success" data-dismiss="modal">Enviar Información</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
+                 
             </div>
 
         </div>
@@ -223,6 +250,8 @@
             context.drawImage(video, 25, 0, 250, 200);
         });
     }, false);
+
+    javascript: get_loc();
 
 </script>
 
