@@ -35,9 +35,37 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Register">Registrar</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contacto</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inicio<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Register">Registrar</a></li>
+                            <li><a href="#">Historial</a></li>
+                            <li role="separator" class="divider"></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Register">Productos</a></li>
+                            <li><a asp-area="" asp-controller="Franchises" asp-action="Index">Franquicias</a></li>
+                            <li><a href="#">Sucursales</a></li>
+                            <li><a href="#">Rutas</a></li>
+                            <li><a href="#">Asinación de personal</a></li>
+                            <li role="separator" class="divider"></li>
+
+                        </ul>
+                    </li>
+         
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Reporte General</a></li>
+                            <li><a href="#">Reporte por usuario</a></li>
+                            <li role="separator" class="divider"></li>
+
+                        </ul>
+                    </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
