@@ -1,14 +1,14 @@
 ﻿@model StoreReport.Models.Franchise
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar fraquicia";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Esta seguro que desea eliminar la franquicia?</h3>
 <div>
-    <h4>Franchise</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,7 +33,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="FranchiseID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a asp-action="Index">Retornar a la lista</a>
     </form>
 </div>

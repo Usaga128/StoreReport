@@ -1,10 +1,10 @@
 ﻿@model StoreReport.Models.Franchise
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de franquicia";
 }
 
-<h2>Details</h2>
+<h2>Detalle</h2>
 
 <div>
     <h4>Franchise</h4>
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.FranchiseID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Editar" asp-route-id="@Model.FranchiseID">Editar</a> |
+    <a asp-action="Index">Retornar a la lista</a>
 </div>

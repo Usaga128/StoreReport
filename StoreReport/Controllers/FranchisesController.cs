@@ -58,6 +58,7 @@ namespace StoreReport.Controllers
         {
             if (ModelState.IsValid)
             {
+                franchise.CreatedDate = DateTime.Now;
                 _context.Add(franchise);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
