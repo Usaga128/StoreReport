@@ -10,6 +10,7 @@ using StoreReport.Models;
 
 namespace StoreReport.Controllers
 {
+   
     public class StoresController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +23,7 @@ namespace StoreReport.Controllers
         // GET: Stores
         public async Task<IActionResult> Index()
         {
+           
             return View(await _context.Store.ToListAsync());
         }
 
@@ -42,10 +44,26 @@ namespace StoreReport.Controllers
 
             return View(store);
         }
+      
+
+        public  void LoadViewBag()
+        {
+
+            var franchiseslist =   _context.Franchise.OrderBy(model => model.Name).OrderBy(model => model.Status).ToList();
+            ViewBag.StoreList = new SelectList(franchiseslist, "FranchiseID", "Name");
+            ViewData["StoreList"] = ViewBag.StoreList;
+
+
+        }
+      
 
         // GET: Stores/Create
         public IActionResult Create()
         {
+
+
+            LoadViewBag();
+
             return View();
         }
 
@@ -56,13 +74,17 @@ namespace StoreReport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StoreID,Name,Phone,ContactName,Address,GeoAddress,CreatedBy,CreatedDate,Status,FranchiseID")] Store store)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(store);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            LoadViewBag();
             return View(store);
+           
         }
 
         // GET: Stores/Edit/5
