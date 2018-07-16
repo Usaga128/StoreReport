@@ -4,33 +4,36 @@
     ViewData["Title"] = "Detalle de franquicia";
 }
 
-<h2>Detalle</h2>
+<h2>Detalle de franquicia</h2>
 
 <div>
-    <h4>Franchise</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+           Nombre
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
+           Fecha creación
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            Estado
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            <div class="input-group mb-3">
+                <select asp-for="Status" class="custom-select" id="inputGroupSelect01" disabled>
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                </select>
+            </div>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Editar" asp-route-id="@Model.FranchiseID">Editar</a> |
     <a asp-action="Index">Retornar a la lista</a>
 </div>

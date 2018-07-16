@@ -10,22 +10,22 @@ using StoreReport.Models;
 
 namespace StoreReport.Controllers
 {
-    public class FranchisesController : Controller
+    public class StoresController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public FranchisesController(ApplicationDbContext context)
+        public StoresController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Franchises
+        // GET: Stores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Franchise.OrderBy(model => model.Name).OrderBy(model => model.Status).ToListAsync());
+            return View(await _context.Store.ToListAsync());
         }
 
-        // GET: Franchises/Details/5
+        // GET: Stores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,40 +33,39 @@ namespace StoreReport.Controllers
                 return NotFound();
             }
 
-            var franchise = await _context.Franchise
-                .SingleOrDefaultAsync(m => m.FranchiseID == id);
-            if (franchise == null)
+            var store = await _context.Store
+                .FirstOrDefaultAsync(m => m.StoreID == id);
+            if (store == null)
             {
                 return NotFound();
             }
 
-            return View(franchise);
+            return View(store);
         }
 
-        // GET: Franchises/Create
+        // GET: Stores/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Franchises/Create
+        // POST: Stores/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FranchiseID,Name,CreatedDate,Status")] Franchise franchise)
+        public async Task<IActionResult> Create([Bind("StoreID,Name,Phone,ContactName,Address,GeoAddress,CreatedBy,CreatedDate,Status,FranchiseID")] Store store)
         {
             if (ModelState.IsValid)
             {
-                franchise.CreatedDate = DateTime.Now;
-                _context.Add(franchise);
+                _context.Add(store);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(franchise);
+            return View(store);
         }
 
-        // GET: Franchises/Edit/5
+        // GET: Stores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +73,22 @@ namespace StoreReport.Controllers
                 return NotFound();
             }
 
-            var franchise = await _context.Franchise.SingleOrDefaultAsync(m => m.FranchiseID == id);
-            if (franchise == null)
+            var store = await _context.Store.FindAsync(id);
+            if (store == null)
             {
                 return NotFound();
             }
-            return View(franchise);
+            return View(store);
         }
 
-        // POST: Franchises/Edit/5
+        // POST: Stores/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FranchiseID,Name,CreatedDate,Status")] Franchise franchise)
+        public async Task<IActionResult> Edit(int id, [Bind("StoreID,Name,Phone,ContactName,Address,GeoAddress,CreatedBy,CreatedDate,Status,FranchiseID")] Store store)
         {
-            if (id != franchise.FranchiseID)
+            if (id != store.StoreID)
             {
                 return NotFound();
             }
@@ -98,12 +97,12 @@ namespace StoreReport.Controllers
             {
                 try
                 {
-                    _context.Update(franchise);
+                    _context.Update(store);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FranchiseExists(franchise.FranchiseID))
+                    if (!StoreExists(store.StoreID))
                     {
                         return NotFound();
                     }
@@ -114,10 +113,10 @@ namespace StoreReport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(franchise);
+            return View(store);
         }
 
-        // GET: Franchises/Delete/5
+        // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +124,30 @@ namespace StoreReport.Controllers
                 return NotFound();
             }
 
-            var franchise = await _context.Franchise
-                .SingleOrDefaultAsync(m => m.FranchiseID == id);
-            if (franchise == null)
+            var store = await _context.Store
+                .FirstOrDefaultAsync(m => m.StoreID == id);
+            if (store == null)
             {
                 return NotFound();
             }
 
-            return View(franchise);
+            return View(store);
         }
 
-        // POST: Franchises/Delete/5
+        // POST: Stores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var franchise = await _context.Franchise.SingleOrDefaultAsync(m => m.FranchiseID == id);
-            _context.Franchise.Remove(franchise);
+            var store = await _context.Store.FindAsync(id);
+            _context.Store.Remove(store);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FranchiseExists(int id)
+        private bool StoreExists(int id)
         {
-            return _context.Franchise.Any(e => e.FranchiseID == id);
+            return _context.Store.Any(e => e.StoreID == id);
         }
     }
 }
