@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+               Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+               Tel
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactName)
+               Contacto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+               Dirección
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GeoAddress)
@@ -34,10 +34,10 @@
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Estado
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FranchiseID)
+                Franquicia
             </th>
             <th></th>
         </tr>
@@ -67,15 +67,34 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @if (item.Status == 1)
+                {
+                    <label>Activo</label>
+                }
+                else if (item.Status == 2)
+                {
+                    <label>Inactivo</label>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FranchiseID)
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.StoreList;
+                    foreach (SelectListItem vItem in list)
+                    {
+                        @if(vItem.Value.Equals(item.FranchiseID.ToString()))
+                        {
+                <label>@vItem.Text</label>
+                        }
+                    }
+                }
+
+              
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StoreID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StoreID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StoreID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StoreID">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.StoreID">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.StoreID">Eliminar</a>
             </td>
         </tr>
 }

@@ -11,6 +11,7 @@ namespace StoreReport.Models
     {
         public int StoreID
         { set; get; }
+        [Required]
         public string Name
         { set; get; }
         public string Phone

@@ -10,6 +10,7 @@ namespace StoreReport.Models
     {
         public int FranchiseID
         { set; get; }
+        [Required]
         public string Name
         { set; get; }
         public DateTime CreatedDate

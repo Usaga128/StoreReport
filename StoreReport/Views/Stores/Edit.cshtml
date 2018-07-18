@@ -1,12 +1,10 @@
 ﻿@model StoreReport.Models.Store
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar tienda";
 }
 
-<h2>Edit</h2>
-
-<h4>Store</h4>
+<h2>Modificar Información de la tienda.</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,59 +12,62 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="StoreID" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Nombre</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactName" class="control-label"></label>
+                <label asp-for="ContactName" class="control-label">Nombre del contacto</label>
                 <input asp-for="ContactName" class="form-control" />
                 <span asp-validation-for="ContactName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <label asp-for="Phone" class="control-label">Teléfono</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Dirección</label>
+                <textarea asp-for="Address" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="GeoAddress" class="control-label"></label>
-                <input asp-for="GeoAddress" class="form-control" />
-                <span asp-validation-for="GeoAddress" class="text-danger"></span>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Estado</label>
+                </div>
+                <select asp-for="Status" class="custom-select" id="inputGroupSelect01">
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Franquicia</label>
+                </div>
+
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.StoreList;
+
+                }
+
+                @Html.DropDownList("FranchiseID", list, "N/A")
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FranchiseID" class="control-label"></label>
-                <input asp-for="FranchiseID" class="form-control" />
-                <span asp-validation-for="FranchiseID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+
+    <br>
+    <div class="form-group">
+        <input type="submit" value="Guardar cambios" class="btn btn-default" />
     </div>
+    </form>
+</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retornar a la lista</a>
 </div>
 
 @section Scripts {

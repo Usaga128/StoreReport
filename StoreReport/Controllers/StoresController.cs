@@ -23,13 +23,15 @@ namespace StoreReport.Controllers
         // GET: Stores
         public async Task<IActionResult> Index()
         {
-           
+            LoadViewBag();
             return View(await _context.Store.ToListAsync());
         }
 
         // GET: Stores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            LoadViewBag();
+
             if (id == null)
             {
                 return NotFound();
@@ -51,7 +53,7 @@ namespace StoreReport.Controllers
 
             var franchiseslist =   _context.Franchise.OrderBy(model => model.Name).OrderBy(model => model.Status).ToList();
             ViewBag.StoreList = new SelectList(franchiseslist, "FranchiseID", "Name");
-            ViewData["StoreList"] = ViewBag.StoreList;
+            
 
 
         }
@@ -74,7 +76,8 @@ namespace StoreReport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StoreID,Name,Phone,ContactName,Address,GeoAddress,CreatedBy,CreatedDate,Status,FranchiseID")] Store store)
         {
-            
+            LoadViewBag();
+
             if (ModelState.IsValid)
             {
                 _context.Add(store);
@@ -82,7 +85,7 @@ namespace StoreReport.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            LoadViewBag();
+           
             return View(store);
            
         }
@@ -90,6 +93,7 @@ namespace StoreReport.Controllers
         // GET: Stores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
@@ -110,6 +114,7 @@ namespace StoreReport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("StoreID,Name,Phone,ContactName,Address,GeoAddress,CreatedBy,CreatedDate,Status,FranchiseID")] Store store)
         {
+            LoadViewBag();
             if (id != store.StoreID)
             {
                 return NotFound();
@@ -141,6 +146,7 @@ namespace StoreReport.Controllers
         // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
@@ -161,6 +167,7 @@ namespace StoreReport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            LoadViewBag();
             var store = await _context.Store.FindAsync(id);
             _context.Store.Remove(store);
             await _context.SaveChangesAsync();
@@ -169,6 +176,7 @@ namespace StoreReport.Controllers
 
         private bool StoreExists(int id)
         {
+
             return _context.Store.Any(e => e.StoreID == id);
         }
     }
