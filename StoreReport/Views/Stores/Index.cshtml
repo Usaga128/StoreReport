@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<StoreReport.Models.Store>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Consulta de Sucursales";
 }
 
-<h2>Index</h2>
+<h2>Consulta de Sucursales</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear una nueva sucursal</a>
 </p>
 <table class="table">
     <thead>
@@ -24,14 +24,14 @@
             <th>
                Dirección
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.GeoAddress)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
+            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                Fecha de creación
             </th>
             <th>
                 Estado
@@ -57,12 +57,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.GeoAddress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
@@ -93,7 +93,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StoreID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.StoreID">Detalles</a> |
+               
                 <a asp-action="Delete" asp-route-id="@item.StoreID">Eliminar</a>
             </td>
         </tr>

@@ -98,6 +98,7 @@ namespace StoreReport.Controllers
             {
                 try
                 {
+                    franchise.CreatedDate = DateTime.Now;
                     _context.Update(franchise);
                     await _context.SaveChangesAsync();
                 }

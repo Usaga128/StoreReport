@@ -1,59 +1,44 @@
 ﻿@model StoreReport.Models.Store
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Sucursal";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar Sucursal</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Esta seguro que desea eliminar la scursal?</h3>
 <div>
-    <h4>Store</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+           Nombre
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Phone)
+           Tel
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Phone)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ContactName)
+           Nombre del contacto
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ContactName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+          Dirección
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Address)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GeoAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GeoAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
+        
+       
+      
+        @*<dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd>
@@ -64,12 +49,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.FranchiseID)
-        </dd>
+        </dd>*@
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="StoreID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a asp-action="Index">Retornar a la lista</a>
     </form>
 </div>

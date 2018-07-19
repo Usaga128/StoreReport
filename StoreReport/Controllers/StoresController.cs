@@ -80,6 +80,7 @@ namespace StoreReport.Controllers
 
             if (ModelState.IsValid)
             {
+                store.CreatedDate = DateTime.Now;
                 _context.Add(store);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,6 +105,7 @@ namespace StoreReport.Controllers
             {
                 return NotFound();
             }
+           
             return View(store);
         }
 
@@ -124,6 +126,7 @@ namespace StoreReport.Controllers
             {
                 try
                 {
+                    store.CreatedDate = DateTime.Now;
                     _context.Update(store);
                     await _context.SaveChangesAsync();
                 }
