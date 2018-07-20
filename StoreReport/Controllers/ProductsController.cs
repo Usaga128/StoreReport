@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,12 @@ using StoreReport.Models;
 
 namespace StoreReport.Controllers
 {
+   
     public class ProductsController : Controller
     {
+
+        public IList<Product> ProductList { get; set; }
+
         private readonly ApplicationDbContext _context;
 
         public ProductsController(ApplicationDbContext context)
@@ -19,10 +24,30 @@ namespace StoreReport.Controllers
             _context = context;
         }
 
-        // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            
+            var productList = from m in _context.Product
+                              select m;
+
+           
+            return View(await productList.ToListAsync());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Index(IFormCollection form)
+        {
+            string id = form["searchQuery"].ToString();
+        var productList = from m in _context.Product
+                         select m;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                productList = productList.Where(s => s.Name.Contains(id));
+            }
+
+            return View(await productList.ToListAsync());
         }
 
         // GET: Products/Details/5
