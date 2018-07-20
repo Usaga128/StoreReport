@@ -1,0 +1,24 @@
+﻿@model StoreReport.Models.Checks
+
+@{
+    ViewData["Title"] = "Detalle de la pregunta";
+}
+
+
+<div>
+    <h4>Detalle de la pregunta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Pregunta
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ChecksID">Editar</a> |
+    <a asp-action="Index">Retornar a la lista</a>
+</div>
