@@ -8,112 +8,122 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StoreReport.Data;
 using StoreReport.Models;
+using PagedList;
 
 namespace StoreReport.Controllers
 {
-   
-    public class ProductsController : Controller
+    public class ItemsController : Controller
     {
-
-        public IList<Product> ProductList { get; set; }
-
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        public async Task<IActionResult> Index()
+        public void LoadViewBag()
         {
-            
-            var productList = from m in _context.Product
-                              select m;
 
-           
-            return View(await productList.ToListAsync());
+            var productlist = _context.ProductType.OrderBy(model => model.Name).ToList();
+            ViewBag.productlist = new SelectList(productlist, "ProductTypeID", "Name");
+
+
+
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Index(IFormCollection form)
         {
+            LoadViewBag();
             string id = form["searchQuery"].ToString();
-        var productList = from m in _context.Product
-                         select m;
+            var itemList = from m in _context.Item
+                              select m;
 
             if (!String.IsNullOrEmpty(id))
             {
-                productList = productList.Where(s => s.Name.Contains(id));
+               
+                itemList = itemList.Where(s => s.Name.Contains(id));
             }
 
-            return View(await productList.ToListAsync());
+            return View(await itemList.ToListAsync());
+        }
+        // GET: Items
+        public async Task<IActionResult> Index()
+        {
+            LoadViewBag();
+          
+
+         
+            return View(await _context.Item.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
+            var item = await _context.Item
+                .FirstOrDefaultAsync(m => m.ItemID == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(item);
         }
 
-        // GET: Products/Create
+        // GET: Items/Create
         public IActionResult Create()
         {
+            LoadViewBag();
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,Name,Description")] Product product)
+        public async Task<IActionResult> Create([Bind("ItemID,ProductCode,Name,Description,CreatedDate,CreatedBy,ProductTypeID")] Item item)
         {
+            LoadViewBag();
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(item);
         }
 
-        // GET: Products/Edit/5
+        // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var item = await _context.Item.FindAsync(id);
+            if (item == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(item);
         }
 
-        // POST: Products/Edit/5
+        // POST: Items/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemID,ProductCode,Name,Description,CreatedDate,CreatedBy,ProductTypeID")] Item item)
         {
-            if (id != product.ProductID)
+            LoadViewBag();
+            if (id != item.ItemID)
             {
                 return NotFound();
             }
@@ -122,12 +132,12 @@ namespace StoreReport.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductID))
+                    if (!ItemExists(item.ItemID))
                     {
                         return NotFound();
                     }
@@ -138,41 +148,43 @@ namespace StoreReport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(item);
         }
 
-        // GET: Products/Delete/5
+        // GET: Items/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
+            var item = await _context.Item
+                .FirstOrDefaultAsync(m => m.ItemID == id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(item);
         }
 
-        // POST: Products/Delete/5
+        // POST: Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
+            LoadViewBag();
+            var item = await _context.Item.FindAsync(id);
+            _context.Item.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool ItemExists(int id)
         {
-            return _context.Product.Any(e => e.ProductID == id);
+            return _context.Item.Any(e => e.ItemID == id);
         }
     }
 }

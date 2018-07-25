@@ -214,25 +214,28 @@ namespace StoreReport.Data.Migrations
                     b.ToTable("Franchise");
                 });
 
-            modelBuilder.Entity("StoreReport.Models.Product", b =>
+            modelBuilder.Entity("StoreReport.Models.Item", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("ItemID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("ProductCode")
-                        .IsRequired();
+                    b.Property<string>("ProductCode");
 
                     b.Property<int>("ProductTypeID");
 
-                    b.HasKey("ProductID");
+                    b.HasKey("ItemID");
 
-                    b.ToTable("Product");
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("StoreReport.Models.ProductType", b =>

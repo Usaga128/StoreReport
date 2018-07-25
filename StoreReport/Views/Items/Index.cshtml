@@ -1,0 +1,71 @@
+﻿@model IEnumerable<StoreReport.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Consulta de productos</h2>
+
+<p>
+    <a asp-action="Create">Crear nuevo producto</a>
+</p>
+
+
+
+<div class="search-box">
+    <form method="post">
+        <div class="form-group">
+            <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
+        </div>
+        <button type="submit" class="btn btn-info">Buscar</button>
+    </form>
+
+</div>
+
+<div id="searchResults"></div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+
+            <th>
+                Tipo de producto
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @{
+                        SelectList list = new SelectList(new List<SelectListItem>());
+                        list = ViewBag.productlist;
+                        foreach (SelectListItem vItem in list)
+                        {
+                            @if (vItem.Value.Equals(item.ProductTypeID.ToString()))
+                            {
+                                <label>@vItem.Text</label>
+                            }
+                        }
+                    }
+
+
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ItemID">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ItemID">Eliminar</a>
+                </td>
+            </tr>
+        }
+           
+    </tbody>
+</table>

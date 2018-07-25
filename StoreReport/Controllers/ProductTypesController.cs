@@ -54,7 +54,7 @@ namespace StoreReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductTypeID,Name")] ProductType productType)
+        public async Task<IActionResult> Create([Bind("ProductType,Name")] ProductType productType)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace StoreReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductTypeID,Name")] ProductType productType)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductType,Name")] ProductType productType)
         {
             if (id != productType.ProductTypeID)
             {

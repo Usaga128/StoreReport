@@ -21,7 +21,7 @@ namespace StoreReport.Data.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<int>(
-                name: "ProductTypeID",
+                name: "ProductType",
                 table: "Product",
                 nullable: false,
                 defaultValue: 0);
@@ -30,13 +30,13 @@ namespace StoreReport.Data.Migrations
                 name: "ProductType",
                 columns: table => new
                 {
-                    ProductTypeID = table.Column<int>(nullable: false)
+                    ProductType = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductType", x => x.ProductTypeID);
+                    table.PrimaryKey("PK_ProductType", x => x.ProductType);
                 });
         }
 
@@ -50,7 +50,7 @@ namespace StoreReport.Data.Migrations
                 table: "Product");
 
             migrationBuilder.DropColumn(
-                name: "ProductTypeID",
+                name: "ProductType",
                 table: "Product");
 
             migrationBuilder.AlterColumn<string>(

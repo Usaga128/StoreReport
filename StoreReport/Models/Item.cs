@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace StoreReport.Models
 {
-    public class Product
+    public class Item
     {
-        public int ProductID
+        public int ItemID
         { set; get; }
-        [Required]
+      
         public string ProductCode
         { set; get; }
         [Required]
@@ -18,6 +18,12 @@ namespace StoreReport.Models
         { set; get; }
         public string Description
         { set; get; }
+       
+        public DateTime CreatedDate
+        { set; get; }
+        public string CreatedBy
+        { set; get; }
+
         public int ProductTypeID
         { set; get; }
     }

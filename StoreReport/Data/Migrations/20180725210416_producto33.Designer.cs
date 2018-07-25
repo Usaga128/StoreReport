@@ -10,8 +10,8 @@ using StoreReport.Data;
 namespace StoreReport.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725193915_ProductType")]
-    partial class ProductType
+    [Migration("20180725210416_producto33")]
+    partial class producto33
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,15 +222,18 @@ namespace StoreReport.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("ProductCode")
-                        .IsRequired();
+                    b.Property<string>("ProductCode");
 
-                    b.Property<int>("ProductType");
+                    b.Property<int>("ProductTypeID");
 
                     b.HasKey("ProductID");
 
@@ -239,13 +242,13 @@ namespace StoreReport.Data.Migrations
 
             modelBuilder.Entity("StoreReport.Models.ProductType", b =>
                 {
-                    b.Property<int>("ProductType")
+                    b.Property<int>("ProductTypeID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
-                    b.HasKey("ProductType");
+                    b.HasKey("ProductTypeID");
 
                     b.ToTable("ProductType");
                 });

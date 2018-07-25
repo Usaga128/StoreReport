@@ -1,0 +1,56 @@
+﻿@model StoreReport.Models.Item
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+<h2>Crear Producto</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductCode" class="control-label">Código de Producto</label>
+                <input asp-for="ProductCode" class="form-control" />
+                <span asp-validation-for="ProductCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Tipo de Producto</label>
+                </div>
+
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.productlist;
+
+                }
+
+                @Html.DropDownList("ProductTypeID", list);
+
+
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Agregar Producto" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retornar a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

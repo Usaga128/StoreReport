@@ -18,7 +18,8 @@ namespace StoreReport.Data
         public DbSet<StoreReport.Models.Franchise> Franchise { get; set; }
         public DbSet<StoreReport.Models.Store> Store { get; set; }
         public DbSet<StoreReport.Models.Checks> Checks { get; set; }
-        public DbSet<StoreReport.Models.Product> Product { get; set; }
         public DbSet<StoreReport.Models.ProductType> ProductType { get; set; }
+        public DbSet<StoreReport.Models.Item> Item { get; set; }
+     
     }
 }

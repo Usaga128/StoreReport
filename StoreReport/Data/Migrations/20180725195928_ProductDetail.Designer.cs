@@ -10,8 +10,8 @@ using StoreReport.Data;
 namespace StoreReport.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725193915_ProductType")]
-    partial class ProductType
+    [Migration("20180725195928_ProductDetail")]
+    partial class ProductDetail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,10 @@ namespace StoreReport.Data.Migrations
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
 
