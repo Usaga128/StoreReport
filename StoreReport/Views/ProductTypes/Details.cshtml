@@ -1,0 +1,23 @@
+﻿@model StoreReport.Models.ProductType
+
+@{
+    ViewData["Title"] = "Detalle de tipo de producto";
+}
+
+
+<div>
+    <h4>Tipo de producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Nombre
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductTypeID">Editar</a> |
+    <a asp-action="Index">Retornar a la lista</a>
+</div>
