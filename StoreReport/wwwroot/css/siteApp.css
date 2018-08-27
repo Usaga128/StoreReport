@@ -1,4 +1,4 @@
-﻿body {
+﻿.body {
     font-family: 'Roboto', sans-serif;
     
     /* Location of the image */
@@ -16,12 +16,19 @@
   
   
 }
+
+.search {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    font-size: 2vw;
+}
+
 .centercontrols {
      display:block;
      margin: 0 auto;
 }
 
-footer {
+.footer {
 
 
     text-align: center;

@@ -3,9 +3,75 @@
 @{
     ViewData["Title"] = "Agregar tienda";
 }
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-<div id="map" style="width:100%;height:400px;"></div>
- 
+
+
+<h2>Información de la tienda.</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4" style="width:100%;">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Nombre</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactName" class="control-label">Nombre del contacto</label>
+                <input asp-for="ContactName" class="form-control" />
+                <span asp-validation-for="ContactName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label">Teléfono</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Dirección</label>
+                <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <input id="pac-input" class="search" type="text" placeholder="Buscar">
+            <label asp-for="Address" class="control-label">Geolocalización</label>
+            <textarea asp-for="GeoAddress" id="GeoAddress" class="form-label" hidden></textarea>
+
+
+            <div id="map" style="width:100%;height:400px;"></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Estado</label>
+                </div>
+                <select asp-for="Status" class="custom-select" id="inputGroupSelect01">
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Franquicia</label>
+                </div>
+
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.StoreList;
+
+                }
+
+                @Html.DropDownList("FranchiseID", list)
+
+
+            </div>
+            <div class="form-group">
+                <br>
+                <input type="submit" value="Agregar tienda" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+ <div>
+<a asp-action="Index">Retornar a la lista</a>
+</div>
 
 <script>
     // This example adds a search box to a map, using the Google Place Autocomplete
@@ -18,8 +84,8 @@
 
     function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -33.8688, lng: 151.2195 },
-            zoom: 13,
+            center: { lat: 9.9355633, lng: -84.1086137 },
+            zoom: 16,
             mapTypeId: 'roadmap'
         });
 
@@ -32,6 +98,7 @@
         map.addListener('bounds_changed', function () {
             searchBox.setBounds(map.getBounds());
         });
+
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
@@ -72,6 +139,12 @@
                     position: place.geometry.location
                 }));
 
+
+                document.getElementById("GeoAddress").value = place.geometry.location;
+
+
+                //alert(place.geometry.location);
+
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
                     bounds.union(place.geometry.viewport);
@@ -85,80 +158,10 @@
 
 </script>
 
+@*La sabana 9.9355633,-84.1086137*@
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEzaIaT6MRaOyrSpxruyCfXes7OqXbTNs&libraries=places&callback=initAutocomplete"
-         async defer></script>
-
-<h2>Información de la tienda.</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Nombre</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactName" class="control-label">Nombre del contacto</label>
-                <input asp-for="ContactName" class="form-control" />
-                <span asp-validation-for="ContactName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label">Teléfono</label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label">Dirección</label>
-                <textarea asp-for="Address" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-
-
-
-            <div id="map"></div>
-
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="control-label" for="inputGroupSelect01">Estado</label>
-                </div>
-                <select asp-for="Status" class="custom-select" id="inputGroupSelect01">
-                    <option value="1">Activo</option>
-                    <option value="2">Inactivo</option>
-                </select>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="control-label" for="inputGroupSelect01">Franquicia</label>
-                </div>
-
-
-                @{
-                    SelectList list = new SelectList(new List<SelectListItem>());
-                    list = ViewBag.StoreList;
-
-                }
-
-                @Html.DropDownList("FranchiseID", list, "N/A")
-
-
-            </div>
-
-
-            <div class="form-group">
-                <br>
-                <input type="submit" value="Agregar tienda" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Retornar a la lista</a>
-</div>
-
+        async defer></script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
