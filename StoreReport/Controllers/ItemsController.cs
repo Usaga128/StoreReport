@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StoreReport.Data;
 using StoreReport.Models;
-using PagedList;
+
 
 namespace StoreReport.Controllers
 {

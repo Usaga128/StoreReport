@@ -17,5 +17,8 @@ namespace StoreReport.Models
         { set; get; }
         public int StoreID
         { set; get; }
+        public int RouteID
+        { set; get; }
+
     }
 }
