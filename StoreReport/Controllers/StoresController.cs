@@ -24,7 +24,7 @@ namespace StoreReport.Controllers
         public async Task<IActionResult> Index()
         {
             LoadViewBag();
-            return View(await _context.Store.ToListAsync());
+            return View( _context.Store.OrderBy(model => model.FranchiseID).ToList());
         }
 
         // GET: Stores/Details/5
