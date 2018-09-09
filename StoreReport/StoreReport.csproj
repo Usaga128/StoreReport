@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-StoreReport-0343213D-DF9B-4BF5-B4F0-408866DB9EC2</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\bin\**" />
+    <Content Remove="Controllers\bin\**" />
+    <EmbeddedResource Remove="Controllers\bin\**" />
+    <None Remove="Controllers\bin\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AngularJS.Core" Version="1.7.2" />
@@ -15,6 +22,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

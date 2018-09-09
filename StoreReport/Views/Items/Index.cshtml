@@ -1,5 +1,6 @@
-﻿@model IEnumerable<StoreReport.Models.Item>
-
+﻿@model ReflectionIT.Mvc.Paging.PagingList<StoreReport.Models.Item>
+@using  ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Index";
 }
@@ -23,6 +24,9 @@
 </div>
 
 <div id="searchResults"></div>
+<nav>
+    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+</nav>
 
 <table class="table">
     <thead>
@@ -46,6 +50,7 @@
                 </td>
 
                 <td>
+                  
                     @{
                         SelectList list = new SelectList(new List<SelectListItem>());
                         list = ViewBag.productlist;
@@ -57,8 +62,6 @@
                             }
                         }
                     }
-
-
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ItemID">Editar</a> |
@@ -66,6 +69,9 @@
                 </td>
             </tr>
         }
-           
+
     </tbody>
 </table>
+<nav>
+    <vc:pager paging-list="@Model" />
+</nav>

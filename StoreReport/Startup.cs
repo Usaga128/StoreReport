@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StoreReport.Data;
 using StoreReport.Models;
 using StoreReport.Services;
+using ReflectionIT.Mvc.Paging;
 
 namespace StoreReport
 {
@@ -37,6 +38,7 @@ namespace StoreReport
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddPaging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

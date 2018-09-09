@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace StoreReport.Models
@@ -26,5 +28,8 @@ namespace StoreReport.Models
 
         public int ProductTypeID
         { set; get; }
+
+       
+        
     }
 }

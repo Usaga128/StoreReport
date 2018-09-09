@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using StoreReport.Data;
 using StoreReport.Models;
 
@@ -20,39 +21,47 @@ namespace StoreReport.Controllers
         {
             _context = context;
         }
-        public void LoadViewBag()
+        public  void LoadViewBag()
         {
 
-            var productlist = _context.ProductType.OrderBy(model => model.Name).ToList();
+            var productlist = _context.ProductType.OrderBy(modelType => modelType.Name).ToList();
             ViewBag.productlist = new SelectList(productlist, "ProductTypeID", "Name");
 
-
+           
 
         }
         [HttpPost]
-        public async Task<IActionResult> Index(IFormCollection form)
+        public async Task<IActionResult> Index(IFormCollection form, int page = 1)
         {
             LoadViewBag();
             string id = form["searchQuery"].ToString();
-            var itemList = from m in _context.Item
-                              select m;
-
+            
+            var itemList  = _context.Item.AsNoTracking().OrderBy(s => s.Name);
             if (!String.IsNullOrEmpty(id))
             {
-               
-                itemList = itemList.Where(s => s.Name.Contains(id));
-            }
+                page = 1;
+                itemList = _context.Item.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.Name);
+                 
+           }
 
-            return View(await itemList.ToListAsync());
+
+                var model = await PagingList.CreateAsync<Item>(itemList, 8, page);
+
+            return View(model);
+
+
+
+
         }
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             LoadViewBag();
-          
 
-         
-            return View(await _context.Item.ToListAsync());
+            var itemList = _context.Item.AsNoTracking().OrderBy(s => s.Name);
+            var model = await PagingList.CreateAsync<Item>(itemList, 8, page);
+          
+            return View(model);
         }
 
         // GET: Items/Details/5
