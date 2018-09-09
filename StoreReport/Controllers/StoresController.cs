@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using StoreReport.Data;
 using StoreReport.Models;
 
@@ -19,14 +21,29 @@ namespace StoreReport.Controllers
         {
             _context = context;
         }
-
-        // GET: Stores
-        public async Task<IActionResult> Index()
+ 
+        public async Task<IActionResult> Index(IFormCollection form, int page = 1)
         {
             LoadViewBag();
-            return View( _context.Store.OrderBy(model => model.FranchiseID).ToList());
-        }
 
+            string id = form["searchQuery"].ToString();
+
+            var itemList = _context.Store.AsNoTracking().OrderBy(s => s.FranchiseID);
+            if (!String.IsNullOrEmpty(id))
+            {
+                page = 1;
+                itemList = _context.Store.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.FranchiseID);
+
+            }
+
+
+            var model = await PagingList.CreateAsync<Store>(itemList, 8, page);
+
+            return View(model);
+
+
+        }
+ 
         // GET: Stores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
