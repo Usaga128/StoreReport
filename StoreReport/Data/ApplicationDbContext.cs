@@ -20,6 +20,7 @@ namespace StoreReport.Data
         public DbSet<StoreReport.Models.Checks> Checks { get; set; }
         public DbSet<StoreReport.Models.ProductType> ProductType { get; set; }
         public DbSet<StoreReport.Models.Item> Item { get; set; }
+        public DbSet<StoreReport.Models.User> User { get; set; }
      
     }
 }

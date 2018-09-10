@@ -9,5 +9,9 @@ namespace StoreReport.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
+        
+        public string Enterprise { get; set; }
+
+        public string Status { get; set; }
     }
 }
