@@ -69,3 +69,9 @@
     /*margin: 0 auto;*/
     font-family: Arial, sans-serif;
 }
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+   

@@ -222,8 +222,9 @@ namespace StoreReport.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Enterprise = model.Enterprise, Status = model.Enterprise };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Enterprise = model.Enterprise, Status = "Reporter" };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     
@@ -235,6 +236,9 @@ namespace StoreReport.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+
+                    var roleresult = _userManager.AddToRoleAsync(user, "Reporter");
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

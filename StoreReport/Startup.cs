@@ -12,6 +12,7 @@ using StoreReport.Data;
 using StoreReport.Models;
 using StoreReport.Services;
 using ReflectionIT.Mvc.Paging;
+using StoreReport.Config;
 
 namespace StoreReport
 {
@@ -42,7 +43,7 @@ namespace StoreReport
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ApplicationDbContext context,IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -67,6 +68,50 @@ namespace StoreReport
             });
 
             DbInitializer.Initialize(context);
+            try
+            {
+                CreateUserRoles(services).Wait();
+            }
+            catch (Exception)
+            {
+
+               
+            }
+
+        }
+
+
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            IdentityResult roleResult;
+            //Adding Admin Role
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            ApplicationUser user = await UserManager.FindByEmailAsync("estebanusaga@gmail.com");
+            var User = new ApplicationUser();
+            if (!User.Email.Equals(""))
+            {
+                await UserManager.AddToRoleAsync(user, "Admin");
+            }
+
+            var roleReporterCheck = await RoleManager.RoleExistsAsync("Reporter");
+            if (!roleReporterCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Reporter"));
+            }
+           
         }
     }
 }
