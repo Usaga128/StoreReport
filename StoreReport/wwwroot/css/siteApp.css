@@ -1,8 +1,6 @@
 ﻿.body {
-    font-family: 'Roboto', sans-serif;
-    
+    font-family: Arial, Helvetica, sans-serif;
     /*/* Location of the image */
-    /*background-image: url('../images/blurstore.jpg');*/*/
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;
     /* Background image doesn't tile */
@@ -13,12 +11,10 @@
     /* This is what makes the background image rescale based
      on the container's size */
     background-size: cover;
-  
-  
 }
 
 .search {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
     font-size: 2vw;
 }
@@ -29,10 +25,8 @@
 }
 
 .footer {
-
-
     text-align: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     bottom: 0;
     position: fixed;
