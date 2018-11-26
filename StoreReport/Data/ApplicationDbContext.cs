@@ -21,6 +21,7 @@ namespace StoreReport.Data
         public DbSet<StoreReport.Models.ProductType> ProductType { get; set; }
         public DbSet<StoreReport.Models.Item> Item { get; set; }
         public DbSet<StoreReport.Models.User> User { get; set; }
+        public DbSet<StoreReport.Models.StoresByRoute> StoresByRoute { get; set; }
      
     }
 }
