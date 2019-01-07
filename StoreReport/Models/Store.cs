@@ -11,7 +11,7 @@ namespace StoreReport.Models
     {
         public int StoreID
         { set; get; }
-        [Required]
+        [Required(ErrorMessage = "El nombre es requerido.")]
         public string Name
         { set; get; }
         public string Phone

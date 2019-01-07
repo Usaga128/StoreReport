@@ -10,7 +10,7 @@ namespace StoreReport.Models
     {
         public int FranchiseID
         { set; get; }
-        [Required]
+        [Required(ErrorMessage = "El nombre es requerido")]
         public string Name
         { set; get; }
         public DateTime CreatedDate
