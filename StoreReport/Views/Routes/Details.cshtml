@@ -1,0 +1,36 @@
+﻿@model StoreReport.Models.Route
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>Ruta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RouteName)
+        </dd>
+        <dt>
+            Usuario
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            Fecha Creación
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RouteID">Editar</a> |
+    <a asp-action="Index">Retornar a la lista</a>
+</div>

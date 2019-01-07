@@ -1,0 +1,47 @@
+﻿@model IEnumerable<StoreReport.Models.Route>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Consulta de rutas</h2>
+
+<p>
+    <a asp-action="Create">Crear nueva ruta</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+
+            <th>
+                Usuario
+            </th>
+            <th>Fecha creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RouteName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RouteID">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.RouteID">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RouteID">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

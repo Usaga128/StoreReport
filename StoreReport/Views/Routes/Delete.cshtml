@@ -1,0 +1,39 @@
+﻿@model StoreReport.Models.Route
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Eliminar Ruta</h2>
+
+<h3>Desea eliminar la ruta?</h3>
+<div>
+    <h4>Route</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RouteName)
+        </dd>
+        <dt>
+            Usuario
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            Fecha Creación
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RouteID" />
+        <input type="submit" value="Eliminar" class="btn btn-success" /> |
+        <a asp-action="Index">Retornar a la lista</a>
+    </form>
+</div>

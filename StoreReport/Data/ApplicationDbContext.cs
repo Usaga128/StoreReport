@@ -22,6 +22,7 @@ namespace StoreReport.Data
         public DbSet<StoreReport.Models.Item> Item { get; set; }
         public DbSet<StoreReport.Models.User> User { get; set; }
         public DbSet<StoreReport.Models.StoresByRoute> StoresByRoute { get; set; }
+        public DbSet<StoreReport.Models.Route> Route { get; set; }
      
     }
 }
