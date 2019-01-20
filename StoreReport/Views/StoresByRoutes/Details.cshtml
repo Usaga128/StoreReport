@@ -17,6 +17,12 @@
             @Html.DisplayFor(model => model.StoreID)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.StoreName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StoreName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.RouteID)
         </dt>
         <dd>
@@ -46,9 +52,15 @@
         <dd>
             @Html.DisplayFor(model => model.Order)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysOfWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DaysOfWeek)
+        </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.StoresByRouteID">Edit</a> |
-    <a asp-action="Index">Retornar a la lista</a>
+    <a asp-action="Index">Back to List</a>
 </div>

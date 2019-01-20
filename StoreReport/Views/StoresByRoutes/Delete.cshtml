@@ -18,6 +18,12 @@
             @Html.DisplayFor(model => model.StoreID)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.StoreName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StoreName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.RouteID)
         </dt>
         <dd>
@@ -47,11 +53,17 @@
         <dd>
             @Html.DisplayFor(model => model.Order)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysOfWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DaysOfWeek)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="StoresByRouteID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Retornar a la lista</a>
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>

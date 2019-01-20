@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreReport.Data;
 using StoreReport.Models;
 
-namespace StoreReport.Views
+namespace StoreReport.Controllers
 {
     public class StoresByRoutesController : Controller
     {
@@ -17,6 +17,14 @@ namespace StoreReport.Views
         public StoresByRoutesController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public void LoadViewBag()
+        {
+
+            var productlist = _context.Store.OrderBy(modelType => modelType.Name).ToList();
+            ViewBag.storelist = new SelectList(productlist, "StoreID", "Name");
+
         }
 
         // GET: StoresByRoutes
@@ -46,6 +54,7 @@ namespace StoreReport.Views
         // GET: StoresByRoutes/Create
         public IActionResult Create()
         {
+            LoadViewBag();
             return View();
         }
 
@@ -54,10 +63,12 @@ namespace StoreReport.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StoresByRouteID,StoreID,RouteID,RouteName,UserName,CreatedDate,Order")] StoresByRoute storesByRoute)
+        public async Task<IActionResult> Create([Bind("StoresByRouteID,StoreID,StoreName,RouteID,RouteName,UserName,CreatedDate,Order,DaysOfWeek")] StoresByRoute storesByRoute)
         {
             if (ModelState.IsValid)
             {
+                 storesByRoute.CreatedDate = DateTime.Now;
+                storesByRoute.UserName = User.Identity.Name;
                 _context.Add(storesByRoute);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +97,7 @@ namespace StoreReport.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StoresByRouteID,StoreID,RouteID,RouteName,UserName,CreatedDate,Order")] StoresByRoute storesByRoute)
+        public async Task<IActionResult> Edit(int id, [Bind("StoresByRouteID,StoreID,StoreName,RouteID,RouteName,UserName,CreatedDate,Order,DaysOfWeek")] StoresByRoute storesByRoute)
         {
             if (id != storesByRoute.StoresByRouteID)
             {

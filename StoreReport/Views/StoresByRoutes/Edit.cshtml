@@ -19,6 +19,11 @@
                 <span asp-validation-for="StoreID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="StoreName" class="control-label"></label>
+                <input asp-for="StoreName" class="form-control" />
+                <span asp-validation-for="StoreName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="RouteID" class="control-label"></label>
                 <input asp-for="RouteID" class="form-control" />
                 <span asp-validation-for="RouteID" class="text-danger"></span>
@@ -44,6 +49,11 @@
                 <span asp-validation-for="Order" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="DaysOfWeek" class="control-label"></label>
+                <input asp-for="DaysOfWeek" class="form-control" />
+                <span asp-validation-for="DaysOfWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
@@ -51,7 +61,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Retornar a la lista</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

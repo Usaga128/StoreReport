@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreReport.Data;
 
 namespace StoreReport.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190120232053_StoresByRoutes")]
+    partial class StoresByRoutes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,8 +312,6 @@ namespace StoreReport.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("DaysOfWeek");
-
                     b.Property<int>("Order");
 
                     b.Property<int>("RouteID");
@@ -322,7 +322,7 @@ namespace StoreReport.Data.Migrations
 
                     b.Property<int>("StoreName");
 
-                    b.Property<string>("UserName");
+                    b.Property<int>("UserName");
 
                     b.HasKey("StoresByRouteID");
 

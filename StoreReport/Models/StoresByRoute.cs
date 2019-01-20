@@ -12,15 +12,19 @@ namespace StoreReport.Models
         { set; get; } 
         public int StoreID
         { set; get; }
+        public int StoreName
+        { set; get; }
         public int RouteID
         { set; get; }
         public int RouteName
         { set; get; }
-        public int UserName
+        public string  UserName
         { set; get; }
         public DateTime CreatedDate
         { set; get; }
         public int Order
+        { set; get; }
+        public string DaysOfWeek
         { set; get; }
     }
 }
