@@ -1,40 +1,33 @@
 ﻿@model IEnumerable<StoreReport.Models.StoresByRoute>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Supermercados por Ruta";
 }
 
-<h2>Index</h2>
+<h2>Consulta de supermercados por ruta</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear un nuevo Supermercado por Ruta</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+           
             <th>
-                @Html.DisplayNameFor(model => model.StoreID)
+               Supermercado
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StoreName)
+              Ruta
+            </th>
+         
+            <th>
+               Usuario
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RouteID)
+              Fecha Creación
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RouteName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaysOfWeek)
+               Días de visita
             </th>
             <th></th>
         </tr>
@@ -42,18 +35,42 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+             
             <td>
-                @Html.DisplayFor(modelItem => item.StoreID)
+           
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.storelist;
+                    foreach (SelectListItem vItem in list)
+                    {
+                        @if (vItem.Value.Equals(item.StoreID.ToString()))
+                        {
+                            <label>@vItem.Text</label>
+                        }
+                    }
+                }
+
             </td>
+
+
             <td>
-                @Html.DisplayFor(modelItem => item.StoreName)
+            
+
+                @{
+                    SelectList list2 = new SelectList(new List<SelectListItem>());
+                    list2 = ViewBag.routelist;
+                    foreach (SelectListItem vItem in list2)
+                    {
+                        @if (vItem.Value.Equals(item.RouteID.ToString()))
+                        {
+                            <label>@vItem.Text</label>
+                        }
+                    }
+                }
+
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RouteID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RouteName)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
@@ -61,15 +78,11 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Order)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DaysOfWeek)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StoresByRouteID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StoresByRouteID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StoresByRouteID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StoresByRouteID">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.StoresByRouteID">Eliminar</a>
             </td>
         </tr>
 }

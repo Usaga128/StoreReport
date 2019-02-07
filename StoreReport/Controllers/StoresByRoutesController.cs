@@ -25,11 +25,16 @@ namespace StoreReport.Controllers
             var productlist = _context.Store.OrderBy(modelType => modelType.Name).ToList();
             ViewBag.storelist = new SelectList(productlist, "StoreID", "Name");
 
+            var routelist = _context.Route.OrderBy(modelType => modelType.RouteName).ToList();
+            ViewBag.routelist = new SelectList(routelist, "RouteID", "RouteName");
+
+
         }
 
         // GET: StoresByRoutes
         public async Task<IActionResult> Index()
         {
+            LoadViewBag();
             return View(await _context.StoresByRoute.ToListAsync());
         }
 
@@ -130,6 +135,7 @@ namespace StoreReport.Controllers
         // GET: StoresByRoutes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
