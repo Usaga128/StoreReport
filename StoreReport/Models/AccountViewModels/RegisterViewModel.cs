@@ -25,11 +25,11 @@ namespace StoreReport.Models.AccountViewModels
         [Compare("Password", ErrorMessage = "La contraseña y la confirmación de contraseña no son iguales.")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "La empresa es requerida.")]
-        [StringLength(100, ErrorMessage = "La empresa {0} debe ser tener como mínimo {2} caracteres y como máximo {1}.", MinimumLength = 4
+        [Required(ErrorMessage = "El nombre es requerido.")]
+        [StringLength(100, ErrorMessage = "El nombre {0} debe ser tener como mínimo {2} caracteres y como máximo {1}.", MinimumLength = 4
             )]
         [DataType(DataType.Text)]
-        [Display(Name = "Enterprise")]
-        public string Enterprise { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 }

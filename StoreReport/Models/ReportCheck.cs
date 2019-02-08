@@ -17,7 +17,7 @@ namespace StoreReport.Models
         { set; get; }
         public DateTime CreatedDate
         { set; get; }
-        public DateTime CreatedBy
+        public string CreatedBy
         { set; get; }
         public String Photo
         { set; get; }

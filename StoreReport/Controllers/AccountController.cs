@@ -222,7 +222,7 @@ namespace StoreReport.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Enterprise = model.Enterprise, Status = "Reporter" };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name = model.Name, Status = "Reporter" };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
