@@ -4,119 +4,144 @@
 @{
     ViewData["Title"] = "Consulta de Sucursales";
 }
+<br />
+<br />
+<br />
 
-<h2>Consulta de Sucursales</h2>
 
-<p>
-    <a asp-action="Create">Crear una nueva sucursal</a>
-</p>
-<div class="search-box">
-    <form method="post">
-        <div class="form-group">
-            <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
+<main>
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">
+                 <br>
+                <h1>Consulta de Sucursales</h1>
+                <h2>
+                    <a asp-action="Create">Crear una nueva sucursal</a>
+                </h2>
+            </div>
         </div>
-        <button type="submit" class="btn btn-info">Buscar</button>
-    </form>
+        <div>
 
-</div>
+            <div>
 
-<div id="searchResults"></div>
-<nav>
-    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
-</nav>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Teléfono
-            </th>
-            <th>
-                Contacto
-            </th>
-            <th>
-                Dirección
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.GeoAddress)
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+
+                                <div class="search-box">
+                                    <form method="post">
+                                        <div class="form-group">
+
+
+                                            <div class="divTableRow">
+                                                <div class="divTableCell">
+                                                    <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                                                </div>
+
+                                                <div class="divTableCell">
+                                                    <button type="submit" class="btn btn-info">Buscar</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                            </th>
+                        </tr>
+
+
+            <tr>
+                <th>
+                    Nombre
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CreatedBy)
-                </th>*@
-            <th>
-                Fecha de creación
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                Franquicia
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+                    Teléfono
+                </th>
+                <th>
+                    Contacto
+                </th>
+                <th>
+                    Dirección
+                </th>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.GeoAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @if (item.Status == 1)
-                    {
-                        <label>Activo</label>
-                    }
-                    else if (item.Status == 2)
-                    {
-                        <label>Inactivo</label>
-                    }
-                </td>
-                <td>
-                    @{
-                        SelectList list = new SelectList(new List<SelectListItem>());
-                        list = ViewBag.StoreList;
-                        foreach (SelectListItem vItem in list)
-                        {
-                            @if (vItem.Value.Equals(item.FranchiseID.ToString()))
-                            {
-                                <label>@vItem.Text</label>
-                            }
-                        }
-                    }
-
-
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.StoreID">Editar</a> |
-
-                    <a asp-action="Delete" asp-route-id="@item.StoreID">Eliminar</a>
-                </td>
+                <th>
+                    Fecha de creación
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Franquicia
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-<nav>
-    <vc:pager paging-list="@Model" />
-</nav>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.GeoAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @if (item.Status == 1)
+                            {
+                                <label>Activo</label>
+                            }
+                            else if (item.Status == 2)
+                            {
+                                <label>Inactivo</label>
+                            }
+                        </td>
+                        <td>
+                            @{
+                                SelectList list = new SelectList(new List<SelectListItem>());
+                                list = ViewBag.StoreList;
+                                foreach (SelectListItem vItem in list)
+                                {
+                                    @if (vItem.Value.Equals(item.FranchiseID.ToString()))
+                                    {
+                                        <label>@vItem.Text</label>
+                                    }
+                                }
+                            }
+
+
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.StoreID">Editar</a> |
+
+                            <a asp-action="Delete" asp-route-id="@item.StoreID">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+
+        </div>
+    </div>
+    <nav>
+        <vc:pager paging-list="@Model" />
+    </nav>
+</main>
