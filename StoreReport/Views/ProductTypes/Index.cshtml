@@ -4,32 +4,45 @@
     ViewData["Title"] = "Consulta de tipos de producto";
 }
 
-<h2>Consulta de tipos de producto</h2>
+<br />
+<br />
+<br />
+<main>
+    <br />
+    <h1>Consulta de tipos de producto</h1>
+    <br />
+    <h2>
+        <a asp-action="Create">Crear nuevo tipo de producto</a>
+    </h2>
+    <div>
 
-<p>
-    <a asp-action="Create">Crear nuevo tipo de producto</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-               Nombre
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductTypeID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductTypeID">Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductTypeID">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ProductTypeID">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.ProductTypeID">Detalle</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ProductTypeID">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>

@@ -3,34 +3,48 @@
 @{
     ViewData["Title"] = "Consulta de preguntas";
 }
+<br />
+<br />
+<br />
+<main>
+    <br />
+    <h1>Consulta de preguntas</h1>
+    <br />
+    <h2>
+        <a asp-action="Create">Crear pregunta</a>
+    </h2>
+    <div>
 
-<h2>Consulta de preguntas</h2>
-<p>
-    <a asp-action="Create">Crear pregunta</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-               Pregunta
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
-          
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ChecksID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.ChecksID">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.ChecksID">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Pregunta
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Question)
+                            </td>
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ChecksID">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.ChecksID">Detalles</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ChecksID">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>

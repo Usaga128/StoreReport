@@ -5,73 +5,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Consulta de productos</h2>
+<br />
+<br />
+<br />
+<main>
+    <br />
+    <h1>Consulta de productos</h1>
+    <br />
+    <h2>
+        <a asp-action="Create">Crear nuevo producto</a>
+    </h2>
+    <div>
 
-<p>
-    <a asp-action="Create">Crear nuevo producto</a>
-</p>
+        <div>
+            <div class="search-box">
+                <form method="post">
+                    <div class="form-group">
 
 
+                        <div class="divTableRow">
+                            <div class="divTableCell">
+                                <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                            </div>
 
-<div class="search-box">
-    <form method="post">
-        <div class="form-group">
-            <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
-        </div>
-        <button type="submit" class="btn btn-info">Buscar</button>
-    </form>
+                            <div class="divTableCell">
+                                <button type="submit" class="btn btn-info">Buscar</button>
+                            </div>
+                        </div>
 
-</div>
+                    </div>
+                </form>
 
-<div id="searchResults"></div>
-<nav>
-    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
-</nav>
+            </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nombre
-            </th>
+            <div id="searchResults"></div>
+            <nav>
+                @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+            </nav>
 
-            <th>
-                Tipo de producto
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
 
-                <td>
-                  
-                    @{
-                        SelectList list = new SelectList(new List<SelectListItem>());
-                        list = ViewBag.productlist;
-                        foreach (SelectListItem vItem in list)
-                        {
-                            @if (vItem.Value.Equals(item.ProductTypeID.ToString()))
-                            {
-                                <label>@vItem.Text</label>
-                            }
-                        }
+                        <th>
+                            Tipo de producto
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+
+                            <td>
+
+                                @{
+                                    SelectList list = new SelectList(new List<SelectListItem>());
+                                    list = ViewBag.productlist;
+                                    foreach (SelectListItem vItem in list)
+                                    {
+                                        @if (vItem.Value.Equals(item.ProductTypeID.ToString()))
+                                        {
+                                            <label>@vItem.Text</label>
+                                        }
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ItemID">Editar</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ItemID">Eliminar</a>
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ItemID">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ItemID">Eliminar</a>
-                </td>
-            </tr>
-        }
 
-    </tbody>
-</table>
-<nav>
-    <vc:pager paging-list="@Model" />
-</nav>
+                </tbody>
+            </table>
+            <nav>
+                <vc:pager paging-list="@Model" />
+            </nav>
+        </div>
+    </div>
+
+</main>

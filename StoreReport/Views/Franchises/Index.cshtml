@@ -4,51 +4,66 @@
     ViewData["Title"] = "Consulta de franquicias";
 }
 
-<h2>Consulta de Franquicias</h2>
 
-<p>
-    <a asp-action="Create">Crear una franquicia</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <td>
-                Nombre
-            </td>
-            <td>
-                Fecha de creación
-            </td>
-            <td>
-                Estado
-            </td>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.CreatedDate
-            </td>
-            <td>
-                @if (item.Status == 1)
-                {
-                    <label>Activo</label>
-                }
-                else if (item.Status == 2)
-                {
-                    <label>Inactivo</label>
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FranchiseID">Editar</a> |
-               
-                <a asp-action="Delete" asp-route-id="@item.FranchiseID">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<br />
+<br />
+<br />
+<main>
+    <br />
+    <h1>Consulta de Franquicias</h1>
+    <br />
+    <h2>
+        <a asp-action="Create">Crear una franquicia</a>
+    </h2>
+    <div >
+
+        <div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th><th>
+                            Fecha de creación
+                        </th>
+                        <th>
+                            Estado
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                            </td>
+                            <td>
+                                @if (item.Status == 1)
+                                {
+                                    <label>Activo</label>
+                                }
+                                else if (item.Status == 2)
+                                {
+                                    <label>Inactivo</label>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.FranchiseID">Editar</a> |
+
+                                <a asp-action="Delete" asp-route-id="@item.FranchiseID">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
