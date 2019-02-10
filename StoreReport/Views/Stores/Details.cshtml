@@ -3,15 +3,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h2>Details</h2>
+<br />
+<br />
+<br />
+<h1>Details</h1>
 
 <div>
     <h4>Store</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-          Nombre
+            Nombre
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
@@ -23,13 +25,13 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
         <dt>
-           Contacto
+            Contacto
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ContactName)
         </dd>
         <dt>
-           Dirección
+            Dirección
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Address)
@@ -53,7 +55,7 @@
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <dt>
-           Estado
+            Estado
         </dt>
         <dd>
             @if (Html.DisplayFor(model => model.Status).Equals("1"))
@@ -66,21 +68,21 @@
             }
         </dd>
         <dt>
-           Franquicia
+            Franquicia
         </dt>
         @*<dd>
-            @{
-                SelectList list = new SelectList(new List<SelectListItem>());
-                list = ViewBag.StoreList;
-                foreach (SelectListItem vItem in list)
-                {
-                    @if (vItem.Value.Equals(Html.DisplayFor(model => model.FranchiseID.ToString())))
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.StoreList;
+                    foreach (SelectListItem vItem in list)
                     {
-                        <label>@vItem.Text</label>
+                        @if (vItem.Value.Equals(Html.DisplayFor(model => model.FranchiseID.ToString())))
+                        {
+                            <label>@vItem.Text</label>
+                        }
                     }
                 }
-            }
-        </dd>*@
+            </dd>*@
     </dl>
 </div>
 <div>

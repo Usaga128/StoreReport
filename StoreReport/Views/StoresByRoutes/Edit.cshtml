@@ -4,66 +4,242 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
 
-<h4>StoresByRoute</h4>
-<hr />
+<script type="text/javascript">
+
+    function  contains(value, searchFor) {
+        if (value.indexOf(searchFor) > -1)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function ChargeData() {
+       
+        var txt = "";
+        var Checked = false;
+        var chkBox1 = document.getElementById('chLunes');
+        var chkBox2 = document.getElementById('chMartes');
+        var chkBox3 = document.getElementById('chMiercoles');
+        var chkBox4 = document.getElementById('chJueves');
+        var chkBox5 = document.getElementById('chJueves');
+        var chkBox6 = document.getElementById('chViernes');
+        var chkBox7 = document.getElementById('chDomingo');
+      
+
+        var vDaysOfWeek = document.getElementById('DaysOfWeek').value;
+         
+        if (contains(vDaysOfWeek,"Lunes")) {
+            chkBox1.checked = true;
+        }
+
+        if (contains(vDaysOfWeek, "Martes")) {
+            chkBox2.checked = true;
+        }
+
+        if (contains(vDaysOfWeek, "Miércoles")) {
+            chkBox3.checked = true;
+        }
+        if (contains(vDaysOfWeek, "Jueves")) {
+            chkBox4.checked = true;
+        }
+        if (contains(vDaysOfWeek, "Viernes")) {
+            chkBox5.checked = true;
+        }
+        if (contains(vDaysOfWeek, "Sábado")) {
+            chkBox6.checked = true;
+        }
+        if (contains(vDaysOfWeek, "Domingo")) {
+            chkBox7.checked = true;
+        }
+
+     
+
+
+    }
+
+
+    function Chk_AdminClick(sender) {
+
+        var txt = "";
+        var Checked = false;
+        var chkBox1 = document.getElementById('chLunes');
+        var chkBox2 = document.getElementById('chMartes');
+        var chkBox3 = document.getElementById('chMiercoles');
+        var chkBox4 = document.getElementById('chJueves');
+        var chkBox5 = document.getElementById('chJueves');
+        var chkBox6 = document.getElementById('chViernes');
+        var chkBox7 = document.getElementById('chDomingo');
+
+
+        Checked = chkBox1.checked;
+        if (Checked == true) {
+            txt = txt + "Lunes";
+        }
+
+        Checked = chkBox2.checked;
+        if (Checked == true) {
+            txt = txt + ",Martes";
+        }
+
+        Checked = chkBox3.checked;
+        if (Checked == true) {
+            txt = txt + ",Miércoles";
+        }
+
+        Checked = chkBox4.checked;
+        if (Checked == true) {
+            txt = txt + ",Jueves";
+        }
+
+        Checked = chkBox5.checked;
+        if (Checked == true) {
+            txt = txt + ",Viernes";
+        }
+
+        Checked = chkBox6.checked;
+        if (Checked == true) {
+            txt = txt + ",Sábado";
+        }
+
+        Checked = chkBox7.checked;
+        if (Checked == true) {
+            txt = txt + ",Domingo";
+        }
+
+
+        document.getElementById('DaysOfWeek').value = txt;
+
+
+    }
+</script>
+
+<br />
+<br />
+<br />
+<h1>Editar Supermercados por ruta</h1>
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" onload="ChargeData()">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="StoresByRouteID" />
-            <div class="form-group">
-                <label asp-for="StoreID" class="control-label"></label>
-                <input asp-for="StoreID" class="form-control" />
-                <span asp-validation-for="StoreID" class="text-danger"></span>
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Ruta</label>
+
+                </div>
+
+                @{
+                    SelectList routeList = new SelectList(new List<SelectListItem>());
+                    routeList = ViewBag.Routelist;
+
+                }
+
+                @Html.DropDownList("RouteID", routeList)
+
+
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="StoreName" class="control-label"></label>
-                <input asp-for="StoreName" class="form-control" />
-                <span asp-validation-for="StoreName" class="text-danger"></span>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Supermercado</label>
+
+                </div>
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.Storelist;
+
+                }
+
+                @Html.DropDownList("StoreID", list)
+
+
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="RouteID" class="control-label"></label>
-                <input asp-for="RouteID" class="form-control" />
-                <span asp-validation-for="RouteID" class="text-danger"></span>
+            <hr />
+            <p>
+                <label class="control-label">Días de visita</label>
+            </p>
+
+            <div class="divTable">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkLunes" value="Lunes" id="chLunes" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Lunes</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkMartes" value="Martes" id="chMartes" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Martes</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkMiercoles" value="Miercoles" id="chMiercoles" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Miércoles</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkJueves" value="Jueves" id="chJueves" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Jueves</label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkViernes" value="Viernes" id="chViernes" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Viernes</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkSabado" value="Sábado" id="chSabado" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Sábado</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">
+                            <p>
+                                <input type="checkbox" runat="server" name="ChkDomingo" value="Domingo" id="chDomingo" onclick="Chk_AdminClick(this)" />
+                                <label class="control-label">Domingo</label>
+                            </p>
+                        </div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="RouteName" class="control-label"></label>
-                <input asp-for="RouteName" class="form-control" />
-                <span asp-validation-for="RouteName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Order" class="control-label"></label>
-                <input asp-for="Order" class="form-control" />
-                <span asp-validation-for="Order" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+
+            <hr />
+
+            <div class="form-group" hidden>
                 <label asp-for="DaysOfWeek" class="control-label"></label>
-                <input asp-for="DaysOfWeek" class="form-control" />
+                <input asp-for="DaysOfWeek" id="DaysOfWeek" class="form-control" />
                 <span asp-validation-for="DaysOfWeek" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Modificar Supermercado por Ruta" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    ChargeData();
+    </script>
 
-<div>
-    <a asp-action="Index">Retornar a la lista</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -4,20 +4,22 @@
     ViewData["Title"] = "Eliminar tipo de producto";
 }
 
-
-<h3>Esta seguro que desea eliminar el tipo de producto?</h3>
+<br />
+<br />
+<br />
+<h1>Esta seguro que desea eliminar el tipo de producto?</h1>
 <div>
 
     <hr />
     <dl class="dl-horizontal">
         <dt>
-           Nombre
+            Nombre
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProductTypeID" />
         <input type="submit" value="Eliminar" class="btn btn-success" /> |

@@ -13,7 +13,7 @@
         <div>
 
             <table class="table">
-                <thead>
+               
                     <tr>
 
                         <th>
@@ -25,82 +25,72 @@
                         </th>
                     </tr>
                     <tr>
-
-                        <th>
-                            Supermercado
-                        </th>
                         <th>
                             Ruta
                         </th>
+                        <th>
+                            Supermercado
+                        </th>
 
-                        <th>
-                            Usuario
-                        </th>
-                        <th>
-                            Fecha Creación
-                        </th>
                         <th>
                             Días de visita
                         </th>
-                        <th></th>
+                        <th>
+
+                        </th>
                     </tr>
-                </thead>
-                <tbody>
+             
+               
                     @foreach (var item in Model)
                     {
-                        <tr>
+                <tr>
 
-                            <td>
+                    <td>
 
 
-                                @{
-                                    SelectList list = new SelectList(new List<SelectListItem>());
-                                    list = ViewBag.storelist;
-                                    foreach (SelectListItem vItem in list)
-                                    {
-                                        @if (vItem.Value.Equals(item.StoreID.ToString()))
-                                        {
-                                            <label>@vItem.Text</label>
-                                        }
-                                    }
+                        @{
+                            SelectList list2 = new SelectList(new List<SelectListItem>());
+                            list2 = ViewBag.routelist;
+                            foreach (SelectListItem vItem in list2)
+                            {
+                                @if (vItem.Value.Equals(item.RouteID.ToString()))
+                                {
+                                    <label>@vItem.Text</label>
                                 }
+                            }
+                        }
 
-                            </td>
+                    </td>
+                    <td>
 
 
-                            <td>
-
-
-                                @{
-                                    SelectList list2 = new SelectList(new List<SelectListItem>());
-                                    list2 = ViewBag.routelist;
-                                    foreach (SelectListItem vItem in list2)
-                                    {
-                                        @if (vItem.Value.Equals(item.RouteID.ToString()))
-                                        {
-                                            <label>@vItem.Text</label>
-                                        }
-                                    }
+                        @{
+                            SelectList list = new SelectList(new List<SelectListItem>());
+                            list = ViewBag.storelist;
+                            foreach (SelectListItem vItem in list)
+                            {
+                                @if (vItem.Value.Equals(item.StoreID.ToString()))
+                                {
+                                    <label>@vItem.Text</label>
                                 }
+                            }
+                        }
 
-                            </td>
+                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DaysOfWeek)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.StoresByRouteID">Editar</a> |
-                                <a asp-action="Delete" asp-route-id="@item.StoresByRouteID">Eliminar</a>
-                            </td>
-                        </tr>
+
+
+                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DaysOfWeek)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.StoresByRouteID">Editar</a> |
+                        <a asp-action="Delete" asp-route-id="@item.StoresByRouteID">Eliminar</a>
+                    </td>
+                </tr>
                     }
-                </tbody>
+                  
             </table>
         </div>
     </div>

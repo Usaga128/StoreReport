@@ -84,6 +84,8 @@ namespace StoreReport.Controllers
         // GET: StoresByRoutes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
@@ -104,6 +106,7 @@ namespace StoreReport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("StoresByRouteID,StoreID,StoreName,RouteID,RouteName,UserName,CreatedDate,Order,DaysOfWeek")] StoresByRoute storesByRoute)
         {
+            LoadViewBag();
             if (id != storesByRoute.StoresByRouteID)
             {
                 return NotFound();

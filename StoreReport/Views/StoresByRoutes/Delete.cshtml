@@ -4,9 +4,10 @@
     ViewData["Title"] = "Eliminar Supermercado por Ruta";
 }
 
-<h2>Eliminar</h2>
-
-<h3>Esta seguro que desea eliminar el Supermercado por Ruta?</h3>
+<br />
+<br />
+<br />
+<h1>Esta seguro que desea eliminar el Supermercado por Ruta?</h1>
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -18,7 +19,7 @@
 
         </dd>
         <dt>
-           Nombre supermercado
+            Nombre supermercado
         </dt>
         <dd>
             @{
@@ -30,28 +31,28 @@
                     @if (vItem.Value.Equals(Model.StoreID.ToString()))
                     {
                         <label>@vItem.Text</label>
-                        }
                     }
+                }
             }
         </dd>
         <dt>
-           Id ruta
+            Id ruta
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RouteID)
         </dd>
         <dt>
-           Nombre de la ruta
+            Nombre de la ruta
         </dt>
         <dd>
             @{
 
-               SelectList list3 = new SelectList(new List<SelectListItem>());
+                SelectList list3 = new SelectList(new List<SelectListItem>());
                 list3 = ViewBag.routelist;
                 foreach (SelectListItem vItem in list3)
                 {
                     @if (vItem.Value.Equals(Model.RouteID.ToString()))
-                        {
+                    {
                         <label>@vItem.Text</label>
                     }
                 }
@@ -68,7 +69,7 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
-        </dd>    
+        </dd>
         <dt>
             Días de visita
         </dt>
@@ -76,8 +77,8 @@
             @Html.DisplayFor(model => model.DaysOfWeek)
         </dd>
     </dl>
-    
-    <form asp-action="Eliminar">
+
+    <form asp-action="Delete">
         <input type="hidden" asp-for="StoresByRouteID" />
         <input type="submit" value="Eliminar" class="btn btn-success" /> |
         <a asp-action="Index">Retornar a la lista</a>

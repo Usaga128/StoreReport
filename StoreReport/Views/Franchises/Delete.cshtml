@@ -3,13 +3,12 @@
 @{
     ViewData["Title"] = "Eliminar fraquicia";
 }
-
-<h2>Eliminar</h2>
-
-<h3>Esta seguro que desea eliminar la franquicia?</h3>
+<br />
+<br />
+<br />
+<h1>Esta seguro que desea eliminar la franquicia?</h1>
 <div>
 
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -30,7 +29,7 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="FranchiseID" />
         <input type="submit" value="Eliminar" class="btn btn-success" /> |
