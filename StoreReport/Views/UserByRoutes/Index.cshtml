@@ -11,25 +11,25 @@
     <div>
 
         <div>
-            <h1>Index</h1>
+            <h1>Rutas por Usuario</h1>
 
             <h2>
-                <a asp-action="Create">Create New</a>
+                <a asp-action="Create">Asignar un nuevo usuario por ruta</a>
             </h2>
             <table class="table">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.UserEmail)
+                            Correo
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RouteId)
+                           Ruta Asignada
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.CreatedBy)
+                            Creado por
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.CreatedDate)
+                            Fecha Creación
                         </th>
                         <th></th>
                     </tr>
@@ -39,10 +39,23 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.UserEmail)
+                                @Html.DisplayFor(modelItem => item.UserName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.RouteId)
+                               
+
+                                @{
+                                    SelectList list = new SelectList(new List<SelectListItem>());
+                                    list = ViewBag.routelist;
+                                    foreach (SelectListItem vItem in list)
+                                    {
+                                        @if (vItem.Value.Equals(item.RouteId.ToString()))
+                                        {
+                                            <label>@vItem.Text</label>
+                                        }
+                                    }
+                                }
+
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CreatedBy)
@@ -51,9 +64,8 @@
                                 @Html.DisplayFor(modelItem => item.CreatedDate)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.UserByRouteID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.UserByRouteID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.UserByRouteID">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.UserByRouteID">Editar</a> |
+                                <a asp-action="Delete" asp-route-id="@item.UserByRouteID">Eliminar</a>
                             </td>
                         </tr>
                     }

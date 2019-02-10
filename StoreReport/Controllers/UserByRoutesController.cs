@@ -33,6 +33,7 @@ namespace StoreReport.Controllers
         // GET: UserByRoutes
         public async Task<IActionResult> Index()
         {
+            LoadViewBag();
             return View(await _context.UserByRoute.ToListAsync());
         }
 
@@ -66,10 +67,12 @@ namespace StoreReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserByRouteID,UserEmail,RouteId,CreatedBy,CreatedDate")] UserByRoute userByRoute)
+        public async Task<IActionResult> Create([Bind("UserByRouteID,UserName,RouteId,CreatedBy,CreatedDate")] UserByRoute userByRoute)
         {
             if (ModelState.IsValid)
             {
+                userByRoute.CreatedDate = DateTime.Now;
+                userByRoute.CreatedBy = User.Identity.Name;
                 _context.Add(userByRoute);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -80,6 +83,7 @@ namespace StoreReport.Controllers
         // GET: UserByRoutes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
@@ -98,8 +102,9 @@ namespace StoreReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserByRouteID,UserEmail,RouteId,CreatedBy,CreatedDate")] UserByRoute userByRoute)
+        public async Task<IActionResult> Edit(int id, [Bind("UserByRouteID,UserName,RouteId,CreatedBy,CreatedDate")] UserByRoute userByRoute)
         {
+            LoadViewBag();
             if (id != userByRoute.UserByRouteID)
             {
                 return NotFound();
@@ -109,6 +114,8 @@ namespace StoreReport.Controllers
             {
                 try
                 {
+                    userByRoute.CreatedDate = DateTime.Now;
+                    userByRoute.CreatedBy = User.Identity.Name;
                     _context.Update(userByRoute);
                     await _context.SaveChangesAsync();
                 }
@@ -131,6 +138,7 @@ namespace StoreReport.Controllers
         // GET: UserByRoutes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            LoadViewBag();
             if (id == null)
             {
                 return NotFound();
