@@ -13,21 +13,21 @@ using StoreReport.Models;
 
 namespace StoreReport.Controllers
 {
+
     public class ItemsController : Controller
     {
+        public static string vID = null;
         private readonly ApplicationDbContext _context;
 
         public ItemsController(ApplicationDbContext context)
         {
             _context = context;
         }
-        public  void LoadViewBag()
+        public void LoadViewBag()
         {
 
             var productlist = _context.ProductType.OrderBy(modelType => modelType.Name).ToList();
             ViewBag.productlist = new SelectList(productlist, "ProductTypeID", "Name");
-
-           
 
         }
         [HttpPost]
@@ -35,30 +35,27 @@ namespace StoreReport.Controllers
         {
             LoadViewBag();
             string id = form["searchQuery"].ToString();
-            
-            var itemList  = _context.Item.AsNoTracking().OrderBy(s => s.Name);
-            if (!String.IsNullOrEmpty(id))
-            {
-                page = 1;
-                itemList = _context.Item.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.Name);
+            vID = id;
+
+            page = 1;
+                var itemList  = _context.Item.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.Name);
                  
-           }
-
-
-                var model = await PagingList.CreateAsync<Item>(itemList, 8, page);
-
+             
+            var model = await PagingList.CreateAsync<Item>(itemList, 8, page);
+           
             return View(model);
-
-
-
 
         }
         // GET: Items
         public async Task<IActionResult> Index(int page = 1)
         {
             LoadViewBag();
-
             var itemList = _context.Item.AsNoTracking().OrderBy(s => s.Name);
+            if(vID!=null)
+            {
+                itemList = _context.Item.AsNoTracking().Where(s => s.Name.Contains(vID)).OrderBy(s => s.Name);
+            }
+
             var model = await PagingList.CreateAsync<Item>(itemList, 8, page);
           
             return View(model);

@@ -5,6 +5,13 @@
     ViewData["Title"] = "Index";
 }
 
+
+<script type="text/javascript">
+    function SearchData() {
+
+        document.getElementById('searchQuery').innerHTML = @ViewBag.TotalStudents;
+    }
+</script>
 <br />
 <br />
 <br />
@@ -26,10 +33,11 @@
                         <div class="divTableRow">
                             <div class="divTableCell">
                                 <input type="text" id="searchQuery" name="searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                                
                             </div>
 
                             <div class="divTableCell">
-                                <button type="submit" class="btn btn-info">Buscar</button>
+                                <button type="submit" class="btn btn-info" onclick="SearchData()">Buscar</button>
                             </div>
                         </div>
 
