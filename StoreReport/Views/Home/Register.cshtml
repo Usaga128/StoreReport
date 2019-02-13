@@ -42,13 +42,19 @@
         var resumenstoreid = document.getElementById('resumenstoreid');
         var resumenproductid = document.getElementById('resumenproductid');
         var resumencomment = document.getElementById('resumencomment');
+        var resumendate = document.getElementById('resumendate');
+        var resumenchecks = document.getElementById('sumupcheckquest');
+        var resumencheckslbl = document.getElementById('checks');
+
+
 
         resumenrouteid.innerHTML = reporouteid.options[reporouteid.selectedIndex].text;
         resumenstoreid.innerHTML = repostoreid.options[reporouteid.selectedIndex].text;
         resumenproductid.innerHTML = repoitemid.options[reporouteid.selectedIndex].text;
         resumencomment.innerHTML = repocomment.value;
-         
+        var now = new Date();
 
+        resumendate.innerHTML = now;
 
         //alert(reporouteid.options[reporouteid.selectedIndex].text);
         //alert(repostoreid.options[reporouteid.selectedIndex].text);
@@ -58,11 +64,22 @@
 
         var i;
         var repoitemsumup = "";
+        var questarr = resumenchecks.value.split(",");
+
+       
         for (i = 0; i < reposumupcheckscount.value; i++) {
-            var currentCheckResponse = document.getElementById(i+1);
-            repoitemsumup = repoitemsumup + (i+1) + "," + currentCheckResponse.checked + "/";
+            var currentCheckResponse = document.getElementById(i + 1);
+            var valor = "No";
+            if (currentCheckResponse.checked) {
+                var valor = "Si";
+            }
+            repoitemsumup = repoitemsumup + (i + 1) + "-" + questarr[i] + "," + valor + "<br>";
+
         }
         repoitemsumup = repoitemsumup.substring(0, repoitemsumup.length - 1);
+
+        resumencheckslbl.innerHTML = repoitemsumup;
+
 
         var canvas = document.getElementById('canvas');
         var dataURL = canvas.toDataURL();
@@ -80,8 +97,7 @@
 
 <!-- Contenido de reporte -->
 <div class="container">
-    <div class="panel-group">
-        <div class="panel panel-default">
+ 
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a>Información del producto</a>
@@ -132,36 +148,39 @@
                 checklist = ViewBag.checklist;
                 String vCheckID = "";
                 int vCount = 0;
+                string vQuest = "";
                 foreach (var item in checklist)
                 {
-                     <label style="margin:10px;" for="check@item.Value">@item.Text</label> @Html.Label("Si") <input type="checkbox" id="@item.Value" value=""> 
-                        <br />
+                    <label style="margin:10px;" for="check@item.Value">@item.Text</label> @Html.Label("Si") <input type="checkbox" id="@item.Value" value="">
+                    <br />
 
-                        vCheckID = vCheckID + @item.Value + ",";
-                        vCount++;
+                    vCheckID = vCheckID + @item.Value + ",";
+                    vQuest= vQuest + @item.Text + ",";
+                    vCount++;
 
-                        }
-                        <input id="sumupcheckscount" name="counter" type="hidden" value="@vCount">
-                        }
-
-
-                       
-                        <div style="margin:5px;">
-
-                            <label for="comment">Comentario:</label>
-                            <textarea style="margin:5px;" class="form-control" rows="2" id="comment"></textarea>
+                }
+                <input id="sumupcheckscount" name="counter" type="hidden" value="@vCount">
+                <input id="sumupcheckquest" name="counter" type="hidden" value="@vQuest.Substring(0,vQuest.Length-1)">
+            }
 
 
-                            <label for="sel1">Fotografía:</label>
 
-                            <div class="divTableCell">
-                                <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
-                                <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal">Continuar</button>
-                            </div>
-                            
-                            
-                        </div>
+            <div style="margin:5px;">
+
+                <label for="comment">Comentario:</label>
+                <textarea style="margin:5px;" class="form-control" rows="2" id="comment"></textarea>
+
+
+                <label for="sel1">Fotografía:</label>
+
+                <div class="divTableCell">
+                    <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
+                    <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal" onclick="SetData()">Enviar reporte</button>
                 </div>
+
+
+            </div>
+        </div>
     </div>
 </div> 
 
@@ -173,16 +192,26 @@
           
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
+                <div>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <label style="margin:10px;" id="resumenrouteid"></label>  <br />
 
-                    <label style="margin:10px;" id="resumenstoreid"></label>  <br />
+                    <h3 class="label label-success">Reporte enviado exitosamente.</h3><br />
 
-                    <label style="margin:10px;" id="resumenproductid"></label>  <br />
 
-                    <label style="margin:10px;" id="resumencomment"></label>  <br />
-                    <h4 class="modal-title">Fotografía</h4>
+
+                    <label  id="resumendate" class="label label-default"></label>  <br />
+
+                    <label   id="resumenrouteid" class="label label-default"></label>  <br />
+
+                    <label  id="resumenstoreid" class="label label-default"></label>  <br />
+
+                    <label   id="resumenproductid" class="label label-default"></label>  <br />
+
+                    <label style="margin:auto"  id="checks" class="label label-default"></label>  <br />
+
+                    <label   id="resumencomment" class="label label-default"></label>  <br />
+
+                    <h3 class="label label-success">Fotografía</h3>
                 </div>
                 <div class="modal-body">
                     <div class="divTableRow">
@@ -192,7 +221,7 @@
                         </div>
 
                     </div>
-                    <button type="button" class="btn btn-success" onclick="SetData()">Enviar Reporte</button>
+                    
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 
                 </div>
@@ -202,8 +231,7 @@
 
             </div>
 
-        </div>
-    </div>
+     
 </div>
 
 <script>
