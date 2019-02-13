@@ -27,6 +27,50 @@
         var lon = position.coords.longitude;
 
     }
+
+
+    function SetData() {
+
+        var reporouteid = document.getElementById('RouteID');
+        var repostoreid = document.getElementById('StoreID');
+        var repoitemid = document.getElementById('ItemID');
+        var reposumupcheckscount = document.getElementById('sumupcheckscount');
+        var repocomment = document.getElementById('comment');
+
+
+        var resumenrouteid = document.getElementById('resumenrouteid');
+        var resumenstoreid = document.getElementById('resumenstoreid');
+        var resumenproductid = document.getElementById('resumenproductid');
+        var resumencomment = document.getElementById('resumencomment');
+
+        resumenrouteid.innerHTML = reporouteid.options[reporouteid.selectedIndex].text;
+        resumenstoreid.innerHTML = repostoreid.options[reporouteid.selectedIndex].text;
+        resumenproductid.innerHTML = repoitemid.options[reporouteid.selectedIndex].text;
+        resumencomment.innerHTML = repocomment.value;
+         
+
+
+        //alert(reporouteid.options[reporouteid.selectedIndex].text);
+        //alert(repostoreid.options[reporouteid.selectedIndex].text);
+        //alert(repoitemid.options[reporouteid.selectedIndex].text);
+        //alert(repoichecklist.value);
+        //alert(repocomment.value);
+
+        var i;
+        var repoitemsumup = "";
+        for (i = 0; i < reposumupcheckscount.value; i++) {
+            var currentCheckResponse = document.getElementById(i+1);
+            repoitemsumup = repoitemsumup + (i+1) + "," + currentCheckResponse.checked + "/";
+        }
+        repoitemsumup = repoitemsumup.substring(0, repoitemsumup.length - 1);
+
+        var canvas = document.getElementById('canvas');
+        var dataURL = canvas.toDataURL();
+        var img = new Image;
+        img.src = dataURL;
+
+       
+    }
 </script>
 
 
@@ -43,111 +87,118 @@
                     <a>Información del producto</a>
                 </h4>
             </div>
-           
-               
-            
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="codReportLabel">Ruta:</label>
 
 
-                        @{
-                            SelectList routelist = new SelectList(new List<SelectListItem>());
-                            routelist = ViewBag.routelist;
 
-                        }
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="codReportLabel">Ruta:</label>
 
-                        @Html.DropDownList("RouteID", routelist)
-                           <br>
-                        <label for="sel1">Comercio:</label>
-                        @{
-                            SelectList list = new SelectList(new List<SelectListItem>());
-                            list = ViewBag.Storelist;
 
-                        }
+                    @{
+                        SelectList routelist = new SelectList(new List<SelectListItem>());
+                        routelist = ViewBag.routelist;
 
-                        @Html.DropDownList("StoreID", list)
+                    }
 
-                        <br>
-                        <label for="sel1">Producto:</label>
-                        @{
-                            SelectList itemlist = new SelectList(new List<SelectListItem>());
-                            itemlist = ViewBag.itemlist;
+                    @Html.DropDownList("RouteID", routelist)
+                    <br>
+                    <label for="sel1">Comercio:</label>
+                    @{
+                        SelectList list = new SelectList(new List<SelectListItem>());
+                        list = ViewBag.Storelist;
 
-                        }
+                    }
 
-                        @Html.DropDownList("ItemID", itemlist)
+                    @Html.DropDownList("StoreID", list)
 
-                    </div>
+                    <br>
+                    <label for="sel1">Producto:</label>
+                    @{
+                        SelectList itemlist = new SelectList(new List<SelectListItem>());
+                        itemlist = ViewBag.itemlist;
+
+                    }
+
+                    @Html.DropDownList("ItemID", itemlist)
+
                 </div>
+            </div>
 
-                <label for="sel1">Atributos de calidad:</label>
-                <br>
-                @{
-                    SelectList checklist = new SelectList(new List<SelectListItem>());
-                    checklist = ViewBag.checklist;
-                    foreach (var item in checklist)
-                    {
-                      
-                        @item.Text  @Html.Label("Si")  <input type = "checkbox" id = "@item.Value" value = "gusta" ><br />
-                            }
-                }
+            <label style="margin:5px;" for="sel1">Atributos de calidad:</label>
+            <br>
+            @{
+                SelectList checklist = new SelectList(new List<SelectListItem>());
+                checklist = ViewBag.checklist;
+                String vCheckID = "";
+                int vCount = 0;
+                foreach (var item in checklist)
+                {
+                     <label style="margin:10px;" for="check@item.Value">@item.Text</label> @Html.Label("Si") <input type="checkbox" id="@item.Value" value=""> 
+                        <br />
 
-                
-                    <label for="comment">Comentario:</label>
-                    <textarea class="form-control" rows="2" id="comment"></textarea>
-                
-             
-                    <div>
+                        vCheckID = vCheckID + @item.Value + ",";
+                        vCount++;
 
-                        
+                        }
+                        <input id="sumupcheckscount" name="counter" type="hidden" value="@vCount">
+                        }
+
+
+                       
+                        <div style="margin:5px;">
+
+                            <label for="comment">Comentario:</label>
+                            <textarea style="margin:5px;" class="form-control" rows="2" id="comment"></textarea>
+
+
                             <label for="sel1">Fotografía:</label>
 
                             <div class="divTableCell">
-                              
-                                        <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
-                                    
-
+                                <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
                                 <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal">Continuar</button>
-
                             </div>
+                            
+                            
                         </div>
-                   
-                
-            </div>
-          
-
-        </div>
+                </div>
     </div>
-</div>
-
-
+</div> 
 
 <div class="container">
-   
+
+  
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-
+          
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h1 class="modal-title">Reporte enviado exitosamente</h1>
+                    <label style="margin:10px;" id="resumenrouteid"></label>  <br />
+
+                    <label style="margin:10px;" id="resumenstoreid"></label>  <br />
+
+                    <label style="margin:10px;" id="resumenproductid"></label>  <br />
+
+                    <label style="margin:10px;" id="resumencomment"></label>  <br />
                     <h4 class="modal-title">Fotografía</h4>
                 </div>
                 <div class="modal-body">
                     <div class="divTableRow">
                         <div class="divTableCell">
-                            
+
                             <canvas id="canvas" width="240" height="240" class="centercontrols"></canvas>
                         </div>
-                        
+
                     </div>
+                    <button type="button" class="btn btn-success" onclick="SetData()">Enviar Reporte</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
+
+
 
             </div>
 
@@ -203,7 +254,7 @@
 
         // Trigger photo take
         document.getElementById('snap').addEventListener('click', function () {
-            context.drawImage(video, 25, 0, 250, 200);
+            context.drawImage(video, 25, 0, 240, 200);
         });
     }, false);
 
