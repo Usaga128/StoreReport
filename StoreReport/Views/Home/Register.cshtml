@@ -51,10 +51,11 @@
         resumenrouteid.innerHTML = reporouteid.options[reporouteid.selectedIndex].text;
         resumenstoreid.innerHTML = repostoreid.options[reporouteid.selectedIndex].text;
         resumenproductid.innerHTML = repoitemid.options[reporouteid.selectedIndex].text;
-        resumencomment.innerHTML = repocomment.value;
+        resumencomment.value = repocomment.value;
         var now = new Date();
-
-        resumendate.innerHTML = now;
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+       
+        resumendate.innerHTML = now.toLocaleDateString("es-ES", options);
 
         //alert(reporouteid.options[reporouteid.selectedIndex].text);
         //alert(repostoreid.options[reporouteid.selectedIndex].text);
@@ -66,7 +67,7 @@
         var repoitemsumup = "";
         var questarr = resumenchecks.value.split(",");
 
-       
+
         for (i = 0; i < reposumupcheckscount.value; i++) {
             var currentCheckResponse = document.getElementById(i + 1);
             var valor = "No";
@@ -86,7 +87,7 @@
         var img = new Image;
         img.src = dataURL;
 
-       
+
     }
 </script>
 
@@ -97,122 +98,123 @@
 
 <!-- Contenido de reporte -->
 <div class="container">
- 
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a>Información del producto</a>
-                </h4>
-            </div>
+
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a>Información del producto</a>
+        </h4>
+    </div>
 
 
 
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="codReportLabel">Ruta:</label>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="codReportLabel">Ruta:</label>
 
 
-                    @{
-                        SelectList routelist = new SelectList(new List<SelectListItem>());
-                        routelist = ViewBag.routelist;
-
-                    }
-
-                    @Html.DropDownList("RouteID", routelist)
-                    <br>
-                    <label for="sel1">Comercio:</label>
-                    @{
-                        SelectList list = new SelectList(new List<SelectListItem>());
-                        list = ViewBag.Storelist;
-
-                    }
-
-                    @Html.DropDownList("StoreID", list)
-
-                    <br>
-                    <label for="sel1">Producto:</label>
-                    @{
-                        SelectList itemlist = new SelectList(new List<SelectListItem>());
-                        itemlist = ViewBag.itemlist;
-
-                    }
-
-                    @Html.DropDownList("ItemID", itemlist)
-
-                </div>
-            </div>
-
-            <label style="margin:5px;" for="sel1">Atributos de calidad:</label>
-            <br>
             @{
-                SelectList checklist = new SelectList(new List<SelectListItem>());
-                checklist = ViewBag.checklist;
-                String vCheckID = "";
-                int vCount = 0;
-                string vQuest = "";
-                foreach (var item in checklist)
-                {
-                    <label style="margin:10px;" for="check@item.Value">@item.Text</label> @Html.Label("Si") <input type="checkbox" id="@item.Value" value="">
-                    <br />
+                SelectList routelist = new SelectList(new List<SelectListItem>());
+                routelist = ViewBag.routelist;
 
-                    vCheckID = vCheckID + @item.Value + ",";
-                    vQuest= vQuest + @item.Text + ",";
-                    vCount++;
-
-                }
-                <input id="sumupcheckscount" name="counter" type="hidden" value="@vCount">
-                <input id="sumupcheckquest" name="counter" type="hidden" value="@vQuest.Substring(0,vQuest.Length-1)">
             }
 
+            @Html.DropDownList("RouteID", routelist)
+            <br>
+            <label for="sel1">Comercio:</label>
+            @{
+                SelectList list = new SelectList(new List<SelectListItem>());
+                list = ViewBag.Storelist;
 
+            }
 
-            <div style="margin:5px;">
+            @Html.DropDownList("StoreID", list)
 
-                <label for="comment">Comentario:</label>
-                <textarea style="margin:5px;" class="form-control" rows="2" id="comment"></textarea>
+            <br>
+            <label for="sel1">Producto:</label>
+            @{
+                SelectList itemlist = new SelectList(new List<SelectListItem>());
+                itemlist = ViewBag.itemlist;
 
+            }
 
-                <label for="sel1">Fotografía:</label>
+            @Html.DropDownList("ItemID", itemlist)
 
-                <div class="divTableCell">
-                    <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
-                    <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal" onclick="SetData()">Enviar reporte</button>
-                </div>
-
-
-            </div>
         </div>
     </div>
-</div> 
+
+    <label style="margin:5px;" for="sel1">Atributos de calidad:</label>
+    <br>
+    @{
+        SelectList checklist = new SelectList(new List<SelectListItem>());
+        checklist = ViewBag.checklist;
+        String vCheckID = "";
+        int vCount = 0;
+        string vQuest = "";
+        foreach (var item in checklist)
+        {
+            <label style="margin:10px;" for="check@item.Value">@item.Text</label> @Html.Label("Si") <input type="checkbox" id="@item.Value" value="">
+            <br />
+
+            vCheckID = vCheckID + @item.Value + ",";
+            vQuest = vQuest + @item.Text + ",";
+            vCount++;
+
+        }
+        <input id="sumupcheckscount" name="counter" type="hidden" value="@vCount">
+        <input id="sumupcheckquest" name="counter" type="hidden" value="@vQuest.Substring(0,vQuest.Length-1)">
+    }
+
+
+
+    <div style="margin:5px;">
+
+        <label for="comment">Comentario:</label>
+        <textarea style="margin:5px;" class="form-control" rows="2" id="comment"></textarea>
+
+
+        <label for="sel1">Fotografía:</label>
+
+        <div class="divTableCell">
+            <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
+            <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal" onclick="SetData()">Enviar reporte</button>
+        </div>
+
+
+    </div>
+</div>
+    </div>
+</div>
 
 <div class="container">
 
-  
+
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-          
+
             <!-- Modal content-->
             <div class="modal-content">
                 <div>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <h3 class="label label-success">Reporte enviado exitosamente.</h3><br />
+                    <h2 >Reporte enviado exitosamente.</h2><br />
 
+                                                                                      <pa>
 
+                                                                                          <label style="margin:5px" id="resumendate"></label>  <br />
 
-                    <label  id="resumendate" class="label label-default"></label>  <br />
+                                                                                          <label style="margin:5px" id="resumenrouteid"></label>  <br />
 
-                    <label   id="resumenrouteid" class="label label-default"></label>  <br />
+                                                                                          <label style="margin:5px" id="resumenstoreid"></label>  <br />
 
-                    <label  id="resumenstoreid" class="label label-default"></label>  <br />
+                                                                                          <label style="margin:5px" id="resumenproductid"></label>  <br />
 
-                    <label   id="resumenproductid" class="label label-default"></label>  <br />
+                                                                                          <label style="margin:5px" id="checks"></label>  <br />
 
-                    <label style="margin:auto"  id="checks" class="label label-default"></label>  <br />
+                                                                                          <input  type="text" rows="5" readonly id="resumencomment" class="form-control" style="color:black"> <br />
 
-                    <label   id="resumencomment" class="label label-default"></label>  <br />
-
-                    <h3 class="label label-success">Fotografía</h3>
-                </div>
+                                                                                          </pa>
+                                                                                              <h2  >Fotografía</h2>
+</div>
                 <div class="modal-body">
                     <div class="divTableRow">
                         <div class="divTableCell">
@@ -221,7 +223,7 @@
                         </div>
 
                     </div>
-                    
+
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 
                 </div>
@@ -231,7 +233,9 @@
 
             </div>
 
-     
+
+        </div>
+    </div>
 </div>
 
 <script>

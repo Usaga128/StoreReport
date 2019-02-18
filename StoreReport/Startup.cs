@@ -104,9 +104,13 @@ namespace StoreReport
             //login id for Admin management
             ApplicationUser user = await UserManager.FindByEmailAsync("estebanusaga@gmail.com");
             var User = new ApplicationUser();
-            if (!User.Email.Equals(""))
+            if (User.Email.Equals("estebanusaga@gmail.com"))
             {
                 await UserManager.AddToRoleAsync(user, "Admin");
+            }
+            else
+            {
+                await UserManager.AddToRoleAsync(user, "Reporter");
             }
 
             var roleReporterCheck = await RoleManager.RoleExistsAsync("Reporter");

@@ -224,6 +224,7 @@ namespace StoreReport.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name = model.Name, Status = "Reporter" };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                 result = await _userManager.AddToRoleAsync(user, "Reporter");
 
                 if (result.Succeeded)
                 {
