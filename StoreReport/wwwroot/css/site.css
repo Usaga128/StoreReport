@@ -152,4 +152,13 @@ headertable {
     padding: 0 5px;
     line-height: 10px;
 }
+* {
+    outline: 0;
+    font-family: sans-serif
+}
+.hide-select {
+    display: none;
+}
+
+
 

@@ -1,4 +1,7 @@
-﻿
+﻿<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
 <h4>
     @{
 
@@ -8,19 +11,13 @@
 </h4>
 <h4>@ViewData["Title"]</h4>
 <h4>@ViewData["Message"]</h4>
+<br />
 
-<br />
-<br />
 <script type="text/javascript" language="javascript">
-
-    function get_loc() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(coordenadas);
-        } else {
-            alert('Este navegador es algo antiguo, actualiza para usar el API de localización');
-        }
-    }
-
+    $('.selectpicker').selectpicker({
+        style: 'btn-info',
+        size: 4
+    });
 
     function coordenadas(position) {
         var lat = position.coords.latitude;
@@ -54,7 +51,7 @@
         resumencomment.value = repocomment.value;
         var now = new Date();
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
-       
+
         resumendate.innerHTML = now.toLocaleDateString("es-ES", options);
 
         //alert(reporouteid.options[reporouteid.selectedIndex].text);
@@ -93,57 +90,63 @@
 
 
 
-<title>Registro de calidad de producto.</title>
+<title>Visita.</title>
 
 
-<!-- Contenido de reporte -->
 <div class="container">
 
     <div class="panel-heading">
-        <h4 class="panel-title">
-            <a>Información del producto</a>
-        </h4>
+        <h1>
+            Visita
+        </h1>
+
+        <a>
+            Historial
+        </a>
+
+
     </div>
 
 
 
-    <div class="panel-body">
-        <div class="form-group">
-            <label for="codReportLabel">Ruta:</label>
-
-
+    <div>
+        <div>
+            <label for="codReportLabel">Usuario: @User.Identity.Name</label> <br>
+          
             @{
                 SelectList routelist = new SelectList(new List<SelectListItem>());
                 routelist = ViewBag.routelist;
 
-            }
+            } 
+                @Html.DropDownList("RouteID", routelist, new { @class = "selectpicker" })
 
-            @Html.DropDownList("RouteID", routelist)
+            
+
             <br>
-            <label for="sel1">Comercio:</label>
+
             @{
                 SelectList list = new SelectList(new List<SelectListItem>());
                 list = ViewBag.Storelist;
 
             }
+           
+                @Html.DropDownList("StoreID", list, new { @class = "selectpicker" })
 
-            @Html.DropDownList("StoreID", list)
-
+            
             <br>
-            <label for="sel1">Producto:</label>
+
             @{
                 SelectList itemlist = new SelectList(new List<SelectListItem>());
                 itemlist = ViewBag.itemlist;
 
             }
+             
+                @Html.DropDownList("ItemID", itemlist, new { @class = "selectpicker" })
 
-            @Html.DropDownList("ItemID", itemlist)
-
+           
         </div>
     </div>
 
-    <label style="margin:5px;" for="sel1">Atributos de calidad:</label>
-    <br>
     @{
         SelectList checklist = new SelectList(new List<SelectListItem>());
         checklist = ViewBag.checklist;
@@ -182,8 +185,6 @@
 
     </div>
 </div>
-    </div>
-</div>
 
 <div class="container">
 
@@ -196,25 +197,25 @@
                 <div>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <h2 >Reporte enviado exitosamente.</h2><br />
+                    <h2>Reporte enviado exitosamente.</h2><br />
 
-                                                                                      <pa>
+                    <pa>
 
-                                                                                          <label style="margin:5px" id="resumendate"></label>  <br />
+                        <label style="margin:5px" id="resumendate"></label>  <br />
 
-                                                                                          <label style="margin:5px" id="resumenrouteid"></label>  <br />
+                        <label style="margin:5px" id="resumenrouteid"></label>  <br />
 
-                                                                                          <label style="margin:5px" id="resumenstoreid"></label>  <br />
+                        <label style="margin:5px" id="resumenstoreid"></label>  <br />
 
-                                                                                          <label style="margin:5px" id="resumenproductid"></label>  <br />
+                        <label style="margin:5px" id="resumenproductid"></label>  <br />
 
-                                                                                          <label style="margin:5px" id="checks"></label>  <br />
+                        <label style="margin:5px" id="checks"></label>  <br />
 
-                                                                                          <input  type="text" rows="5" readonly id="resumencomment" class="form-control" style="color:black"> <br />
+                        <input type="text" rows="5" readonly id="resumencomment" class="form-control" style="color:black"> <br />
 
-                                                                                          </pa>
-                                                                                              <h2  >Fotografía</h2>
-</div>
+                    </pa>
+                    <h2>Fotografía</h2>
+                </div>
                 <div class="modal-body">
                     <div class="divTableRow">
                         <div class="divTableCell">
@@ -289,8 +290,7 @@
             context.drawImage(video, 25, 0, 240, 200);
         });
     }, false);
-
-    javascript: get_loc();
+     
 
 </script>
 

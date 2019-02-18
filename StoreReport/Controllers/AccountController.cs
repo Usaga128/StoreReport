@@ -223,9 +223,12 @@ namespace StoreReport.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name = model.Name, Status = "Reporter" };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                 result = await _userManager.AddToRoleAsync(user, "Reporter");
-
+               
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Equals(true))
+                {
+                    result = await _userManager.AddToRoleAsync(user, "Reporter");
+                }
                 if (result.Succeeded)
                 {
                     
@@ -451,7 +454,11 @@ namespace StoreReport.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                if(error.Code.Equals("PasswordRequiresNonAlphanumeric"))
+                {
+                    error.Description = "La contraseña require por lo menos un caracter que no sea aplanumérico. Ejemplo $.";
+                }
+                ModelState.AddModelError(string.Empty,error.Description);
             }
         }
 
