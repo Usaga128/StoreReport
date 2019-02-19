@@ -95,32 +95,21 @@
 
 <div class="container">
 
-    <div class="panel-heading">
-        <h1>
-            Visita
-        </h1>
-
-        <a>
-            Historial
-        </a>
-
-
-    </div>
-
-
-
+ 
     <div>
         <div>
+
+            <br>
             <label for="codReportLabel">Usuario: @User.Identity.Name</label> <br>
-          
+
             @{
                 SelectList routelist = new SelectList(new List<SelectListItem>());
                 routelist = ViewBag.routelist;
 
-            } 
-                @Html.DropDownList("RouteID", routelist, new { @class = "selectpicker" })
+            }
+            @Html.DropDownList("RouteID", routelist, new { @class = "selectpicker" })
 
-            
+
 
             <br>
 
@@ -129,10 +118,10 @@
                 list = ViewBag.Storelist;
 
             }
-           
-                @Html.DropDownList("StoreID", list, new { @class = "selectpicker" })
 
-            
+            @Html.DropDownList("StoreID", list, new { @class = "selectpicker" })
+
+
             <br>
 
             @{
@@ -140,10 +129,10 @@
                 itemlist = ViewBag.itemlist;
 
             }
-             
-                @Html.DropDownList("ItemID", itemlist, new { @class = "selectpicker" })
 
-           
+            @Html.DropDownList("ItemID", itemlist, new { @class = "selectpicker" })
+
+
         </div>
     </div>
 
@@ -180,6 +169,7 @@
         <div class="divTableCell">
             <video id="video" width="240" height="240" autoplay class="centercontrols"></video>
             <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal" onclick="SetData()">Enviar reporte</button>
+            <button id="snap" class="btn btn-success centercontrols" data-toggle="modal" data-target="#myModal" onclick="SetData()">Historial</button>
         </div>
 
 
