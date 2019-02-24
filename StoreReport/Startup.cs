@@ -13,6 +13,8 @@ using StoreReport.Models;
 using StoreReport.Services;
 using ReflectionIT.Mvc.Paging;
 using StoreReport.Config;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using WebPWrecover.Services;
 
 namespace StoreReport
 {
@@ -39,8 +41,12 @@ namespace StoreReport
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
+
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMvc();
            
