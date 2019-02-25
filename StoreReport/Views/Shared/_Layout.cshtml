@@ -75,13 +75,16 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a asp-area="" asp-controller="Routes" asp-action="Index">Rutas</a></li>
+                                    <li role="separator" class="divider"></li>
                                     <li><a asp-area="" asp-controller="Stores" asp-action="Index">Supermercados</a></li>
+                                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Productos por Supermercado</a></li>
+                                    <li><a asp-area="" asp-controller="Routes" asp-action="Index">Rutas</a></li>
+
                                     <li role="separator" class="divider"></li>
                                     <li><a asp-area="" asp-controller="StoresByRoutes" asp-action="Index">Supermercados por ruta</a></li>
                                     <li><a asp-area="" asp-controller="UserByRoutes" asp-action="Index">Asignación de rutas</a></li>
+
                                     <li role="separator" class="divider"></li>
-                                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Usuarios</a></li>
 
                                 </ul>
                             </li>

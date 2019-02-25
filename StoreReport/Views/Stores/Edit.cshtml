@@ -6,6 +6,8 @@
 <br />
 <br />
 <br />
+<br />
+<br />
 <h1>Modificar Información de la tienda.</h1>
 <hr />
 <div class="row">
@@ -13,6 +15,23 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="StoreID" />
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="control-label" for="inputGroupSelect01">Franquicia</label>
+                </div>
+
+
+                @{
+                    SelectList list = new SelectList(new List<SelectListItem>());
+                    list = ViewBag.StoreList;
+
+                }
+
+                @Html.DropDownList("FranchiseID", list, "N/A")
+
+
+            </div>
+            <br />
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Nombre</label>
                 <input asp-for="Name" class="form-control" />
@@ -33,9 +52,9 @@
                 <textarea asp-for="Address" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <label asp-for="Address" class="control-label">Geolocalización</label>
+            <label asp-for="Address" class="control-label" hidden>Geolocalización</label>
             <div class="form-group">
-                <textarea asp-for="GeoAddress" id="GeoAddress" class="form-label"></textarea>
+                <textarea asp-for="GeoAddress" id="GeoAddress" class="form-label" hidden></textarea>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -45,22 +64,6 @@
                     <option value="1">Activo</option>
                     <option value="2">Inactivo</option>
                 </select>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="control-label" for="inputGroupSelect01">Franquicia</label>
-                </div>
-
-
-                @{
-                    SelectList list = new SelectList(new List<SelectListItem>());
-                    list = ViewBag.StoreList;
-
-                }
-
-                @Html.DropDownList("FranchiseID", list, "N/A")
-
-
             </div>
 
             <br>

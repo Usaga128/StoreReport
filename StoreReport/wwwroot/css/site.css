@@ -2,6 +2,22 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 
+.selectpickerlocal{
+    width: 200px;
+    height: 30px;
+    background-color: white;
+    border-style: solid;
+    border-left-width: 3px;
+    border-left-color: #00DDDD;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 200;
+    padding-left: 6px;
+}
+
 body {
     font-family: 'Roboto Condensed' sans-serif;
     margin: 0;

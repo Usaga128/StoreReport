@@ -1,6 +1,9 @@
 ﻿<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script src="/lib/jquery/dist/jquery.js"></script>
+
+
 
 <h4>
     @{
@@ -14,10 +17,9 @@
 <br />
 
 <script type="text/javascript" language="javascript">
-    $('.selectpicker').selectpicker({
-        style: 'btn-info',
-        size: 4
-    });
+
+   
+
 
     function coordenadas(position) {
         var lat = position.coords.latitude;
@@ -26,66 +28,71 @@
     }
 
 
-    function SetData() {
+    function myFunction(val) {
 
-        var reporouteid = document.getElementById('RouteID');
-        var repostoreid = document.getElementById('StoreID');
-        var repoitemid = document.getElementById('ItemID');
-        var reposumupcheckscount = document.getElementById('sumupcheckscount');
-        var repocomment = document.getElementById('comment');
-
-
-        var resumenrouteid = document.getElementById('resumenrouteid');
-        var resumenstoreid = document.getElementById('resumenstoreid');
-        var resumenproductid = document.getElementById('resumenproductid');
-        var resumencomment = document.getElementById('resumencomment');
-        var resumendate = document.getElementById('resumendate');
-        var resumenchecks = document.getElementById('sumupcheckquest');
-        var resumencheckslbl = document.getElementById('checks');
-
-
-
-        resumenrouteid.innerHTML = reporouteid.options[reporouteid.selectedIndex].text;
-        resumenstoreid.innerHTML = repostoreid.options[repostoreid.selectedIndex].text;
-        resumenproductid.innerHTML = repoitemid.options[repoitemid.selectedIndex].text;
-        resumencomment.value = repocomment.value;
-        var now = new Date();
-        var options = { year: 'numeric', month: 'long', day: 'numeric' };
-
-        resumendate.innerHTML = now.toLocaleDateString("es-ES", options);
-
-        //alert(reporouteid.options[reporouteid.selectedIndex].text);
-        //alert(repostoreid.options[reporouteid.selectedIndex].text);
-        //alert(repoitemid.options[reporouteid.selectedIndex].text);
-        //alert(repoichecklist.value);
-        //alert(repocomment.value);
-
-        var i;
-        var repoitemsumup = "";
-        var questarr = resumenchecks.value.split(",");
-
-
-        for (i = 0; i < reposumupcheckscount.value; i++) {
-            var currentCheckResponse = document.getElementById(i + 1);
-            var valor = "No";
-            if (currentCheckResponse.checked) {
-                var valor = "Si";
-            }
-            repoitemsumup = repoitemsumup + (i + 1) + "-" + questarr[i] + "," + valor + "<br>";
-
-        }
-        repoitemsumup = repoitemsumup.substring(0, repoitemsumup.length - 1);
-
-        resumencheckslbl.innerHTML = repoitemsumup;
-
-
-        var canvas = document.getElementById('canvas');
-        var dataURL = canvas.toDataURL();
-        var img = new Image;
-        img.src = dataURL;
+        var resumenrouteid = document.getElementById('SelectedRouteID');
+        resumenrouteid.innerHTML = val;
 
 
     }
+
+
+function SetData() {
+
+
+    var reporouteid = document.getElementById('RouteID');
+    var repostoreid = document.getElementById('StoreID');
+    var repoitemid = document.getElementById('ItemID');
+    var reposumupcheckscount = document.getElementById('sumupcheckscount');
+    var repocomment = document.getElementById('comment');
+
+
+    var resumenrouteid = document.getElementById('resumenrouteid');
+    var resumenstoreid = document.getElementById('resumenstoreid');
+    var resumenproductid = document.getElementById('resumenproductid');
+    var resumencomment = document.getElementById('resumencomment');
+    var resumendate = document.getElementById('resumendate');
+    var resumenchecks = document.getElementById('sumupcheckquest');
+    var resumencheckslbl = document.getElementById('checks');
+
+
+
+    resumenrouteid.innerHTML = reporouteid.options[reporouteid.selectedIndex].text;
+    resumenstoreid.innerHTML = repostoreid.options[repostoreid.selectedIndex].text;
+    resumenproductid.innerHTML = repoitemid.options[repoitemid.selectedIndex].text;
+    resumencomment.value = repocomment.value;
+    var now = new Date();
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    resumendate.innerHTML = now.toLocaleDateString("es-ES", options);
+
+
+    var i;
+    var repoitemsumup = "";
+    var questarr = resumenchecks.value.split(",");
+
+
+    for (i = 0; i < reposumupcheckscount.value; i++) {
+        var currentCheckResponse = document.getElementById(i + 1);
+        var valor = "No";
+        if (currentCheckResponse.checked) {
+            var valor = "Si";
+        }
+        repoitemsumup = repoitemsumup + (i + 1) + "-" + questarr[i] + "," + valor + "<br>";
+
+    }
+    repoitemsumup = repoitemsumup.substring(0, repoitemsumup.length - 1);
+
+    resumencheckslbl.innerHTML = repoitemsumup;
+
+
+    var canvas = document.getElementById('canvas');
+    var dataURL = canvas.toDataURL();
+    var img = new Image;
+    img.src = dataURL;
+
+
+}
 </script>
 
 
@@ -95,7 +102,7 @@
 
 <div class="container">
 
- 
+    <input type="hidden" id="SelectedRouteID" value="">
     <div>
         <div>
 
@@ -103,25 +110,33 @@
             <label for="codReportLabel">Usuario: @User.Identity.Name</label> <br>
 
             @{
+
                 SelectList routelist = new SelectList(new List<SelectListItem>());
                 routelist = ViewBag.routelist;
 
-            }
-            @Html.DropDownList("RouteID", routelist, new { @class = "selectpicker" })
 
+            }
+            <br>
+
+
+            <select id="RouteID" class="selectpickerlocal" runat="server" onchange="$(this.form).submit()">
+                @{
+                    foreach (var vRoute in routelist)
+                    {
+                        <option value="@vRoute.Value">@vRoute.Text</option>
+                    }
+                }
+
+
+            </select>
 
 
             <br>
+            <br>
 
-            @{
-                SelectList list = new SelectList(new List<SelectListItem>());
-                list = ViewBag.Storelist;
+            <select id="StoreID" runat="server" class="selectpickerlocal" aspitems="@(new SelectList(string.Empty,"StoreID","StoreName"))"></select>
 
-            }
-
-            @Html.DropDownList("StoreID", list, new { @class = "selectpicker" })
-
-
+            <br>
             <br>
 
             @{
@@ -280,7 +295,31 @@
             context.drawImage(video, 25, 0, 240, 200);
         });
     }, false);
-     
 
+    
+    $(document).ready(function () {
+      
+        $('#RouteID').change(function () {
+          
+            var vitem = $('#RouteID').val();
+
+            var url = '@Url.Content("~/")' + "Home/GetStoresByRoute";
+
+            $.getJSON(url, { route: vitem}, function (data) {
+
+        var items = '';
+                $("#StoreID").empty();
+
+               
+                $.each(data, function (i, subcategory) {
+                  
+                items += "<option value='" + subcategory.value + "'>" + subcategory.text + "</option>";
+        });
+
+                $('#StoreID').html(items);
+            });
+
+        });
+    });
 </script>
 
