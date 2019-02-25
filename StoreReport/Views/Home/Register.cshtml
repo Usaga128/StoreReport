@@ -107,48 +107,49 @@ function SetData() {
         <div>
 
             <br>
-            <label for="codReportLabel">Usuario: @User.Identity.Name</label> <br>
+            <b>  <label for="codReportLabel">Usuario: @User.Identity.Name</label></b>
+    <br>
 
-            @{
+    @{
 
-                SelectList routelist = new SelectList(new List<SelectListItem>());
-                routelist = ViewBag.routelist;
+        SelectList routelist = new SelectList(new List<SelectListItem>());
+        routelist = ViewBag.routelist;
 
 
+    }
+    <br>
+
+
+    <select id="RouteID" class="selectpickerlocal" runat="server" onchange="$(this.form).submit()">
+        @{
+            foreach (var vRoute in routelist)
+            {
+                <option value="@vRoute.Value">@vRoute.Text</option>
             }
-            <br>
+        }
 
 
-            <select id="RouteID" class="selectpickerlocal" runat="server" onchange="$(this.form).submit()">
-                @{
-                    foreach (var vRoute in routelist)
-                    {
-                        <option value="@vRoute.Value">@vRoute.Text</option>
-                    }
-                }
+    </select>
 
 
-            </select>
+    <br>
+    <br>
+
+    <select id="StoreID" runat="server" class="selectpickerlocal" aspitems="@(new SelectList(string.Empty,"StoreID","StoreName"))"></select>
+
+    <br>
+    <br>
+
+    @{
+        SelectList itemlist = new SelectList(new List<SelectListItem>());
+        itemlist = ViewBag.itemlist;
+
+    }
+
+    @Html.DropDownList("ItemID", itemlist, new { @class = "selectpickerlocal" })
 
 
-            <br>
-            <br>
-
-            <select id="StoreID" runat="server" class="selectpickerlocal" aspitems="@(new SelectList(string.Empty,"StoreID","StoreName"))"></select>
-
-            <br>
-            <br>
-
-            @{
-                SelectList itemlist = new SelectList(new List<SelectListItem>());
-                itemlist = ViewBag.itemlist;
-
-            }
-
-            @Html.DropDownList("ItemID", itemlist, new { @class = "selectpicker" })
-
-
-        </div>
+</div>
     </div>
 
     @{
