@@ -18,7 +18,8 @@ namespace WebPWrecover.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute("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", subject, message, email);
+            string vKey = "";
+            return Execute(vKey, subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
