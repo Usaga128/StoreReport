@@ -6,9 +6,47 @@
 <br />
 <br />
 <br />
+<br />
 <h1>Crear Comercio por Ruta</h1>
 
 <script type="text/javascript">
+
+    function Chk_CheckAllClick(sender) {
+
+        var chkBox1 = document.getElementById('chLunes');
+        var chkBox2 = document.getElementById('chMartes');
+        var chkBox3 = document.getElementById('chMiercoles');
+        var chkBox4 = document.getElementById('chJueves');
+        var chkBox5 = document.getElementById('chViernes');
+        var chkBox6 = document.getElementById('chSabado');
+        var chkBox7 = document.getElementById('chDomingo');
+
+        var chkBox8 = document.getElementById('ChkAll');
+        Checked = chkBox8.checked;
+        if (Checked == true) {
+
+            chkBox1.checked = true;
+            chkBox2.checked = true;
+            chkBox3.checked = true;
+            chkBox4.checked = true;
+            chkBox5.checked = true;
+            chkBox6.checked = true;
+            chkBox7.checked = true;
+        } else {
+
+
+            chkBox1.checked = false;
+            chkBox2.checked = false;
+            chkBox3.checked = false;
+            chkBox4.checked = false;
+            chkBox5.checked = false;
+            chkBox6.checked = false;
+            chkBox7.checked = false;
+        }
+        Chk_AdminClick(sender);
+
+    }
+
     function Chk_AdminClick(sender) {
 
         var txt = "";
@@ -85,7 +123,7 @@
 
 
             </div>
-          
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="control-label" for="inputGroupSelect01">Supermercado</label>
@@ -108,7 +146,12 @@
             <p>
                 <label class="control-label">Días de visita</label>
             </p>
-
+            <div class="divTableCell">
+                <p>
+                    <input type="checkbox" runat="server" name="ChkAll" value="Lunes" id="ChkAll" onclick="Chk_CheckAllClick(this)" />
+                    <label class="control-label">Seleccionar todos</label>
+                </p>
+            </div>
             <div class="divTable">
                 <div class="divTableBody">
                     <div class="divTableRow">
@@ -171,7 +214,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Agregar Supermercado por Ruta" class="btn btn-success" />
+                <input type="submit" value="Agregar Comercio por Ruta" class="btn btn-success" />
             </div>
         </form>
     </div>

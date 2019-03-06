@@ -16,33 +16,89 @@ namespace StoreReport.Controllers
     public class StoresController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        public static string vID = null;
         public StoresController(ApplicationDbContext context)
         {
             _context = context;
         }
  
+        //public async Task<IActionResult> Index(IFormCollection form, int page = 1)
+        //{
+        //    LoadViewBag();
+
+        //    string id = form["searchQuery"].ToString();
+
+        //    var itemList = _context.Store.AsNoTracking().OrderBy(s => s.FranchiseID);
+        //    if (!String.IsNullOrEmpty(id))
+        //    {
+        //        page = 1;
+        //        itemList = _context.Store.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.FranchiseID);
+
+        //    }
+        //    var model = await PagingList.CreateAsync<Store>(itemList, 8, page);
+
+        //    return View(model);
+
+        //}
+
+
+         [HttpPost]
         public async Task<IActionResult> Index(IFormCollection form, int page = 1)
         {
             LoadViewBag();
-
             string id = form["searchQuery"].ToString();
+            vID = id;
 
-            var itemList = _context.Store.AsNoTracking().OrderBy(s => s.FranchiseID);
-            if (!String.IsNullOrEmpty(id))
-            {
-                page = 1;
-                itemList = _context.Store.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.FranchiseID);
-
-            }
+            page = 1;
+                var itemList  = _context.Store.AsNoTracking().Where(s => s.Name.Contains(id)).OrderBy(s => s.FranchiseID);
 
 
             var model = await PagingList.CreateAsync<Store>(itemList, 8, page);
-
+           
             return View(model);
 
-
         }
+        // GET: Items
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            LoadViewBag();
+            var itemList = _context.Store.AsNoTracking().OrderBy(s => s.FranchiseID);
+            if(vID!=null)
+            {
+                itemList = _context.Store.AsNoTracking().Where(s => s.Name.Contains(vID)).OrderBy(s => s.FranchiseID);
+            }
+
+            var model = await PagingList.CreateAsync<Store>(itemList, 8, page);
+          
+            return View(model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
         // GET: Stores/Details/5
         public async Task<IActionResult> Details(int? id)
